@@ -4,7 +4,14 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
-In the project directory, you can run:
+
+In the project directory;
+
+start backend:
+
+### `npm run start-backend`
+
+start app:
 
 ### `npm start`
 
