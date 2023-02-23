@@ -1,19 +1,9 @@
 import "leaflet/dist/leaflet.css";
-import {
-  MapContainer,
-  TileLayer,
-  Popup,
-  Marker,
-  useMapEvent,
-  useMapEvents,
-} from 'react-leaflet';
-import React, {useRef,useState} from 'react';
-import Markers from './markers'
-import L from 'leaflet'
+import React from 'react';
 
 
 function StudyCard(){
-    
+
     return(
         <div id='studyCard_holder'>
             <div id='study-card' >
@@ -89,7 +79,7 @@ function StudyCard(){
                 </div>
             </div>
         </div>
-        
+
     )
 };
 export default StudyCard;
