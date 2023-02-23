@@ -1,0 +1,9 @@
+#map{
+   
+    margin-right: 0;
+}
+#sideBar{
+    grid-column-start: 1;
+    grid-column-end: 3;
+    margin-left: 0;
+}
