@@ -34,7 +34,9 @@ function Markers() {
           const coord = [point[1],point[0]]
           return (
           <Marker position={coord} icon={iconP}>
-            <Popup>Studyplace</Popup>
+            <Popup>
+              <button>Legg til info</button>
+            </Popup>
           </Marker>)
         })
       }
