@@ -7,3 +7,30 @@
     grid-column-end: 3;
     margin-left: 0;
 }
+.navBar {
+    grid-column: 1 / span 3;
+    background-color: #383838;
+    overflow: hidden;
+    padding: 10px;
+}
+
+.navBar a {
+    float: left;
+    padding: 12px;
+    color: #f2f2f2;
+    font-size: 20px;
+    text-decoration: none;
+    font-family: Helvetica;
+}
+.navBar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+#home{
+    margin-left: 48%;
+
+}
+#logIn{
+float: right;
+margin-right: 5%;
+}
