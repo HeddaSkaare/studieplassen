@@ -87,9 +87,15 @@ export default function FilterSite() {
     <div id='filterBox'>
         
         <div id='element'>
-            <h2>Støy</h2>
+            <div class='headerWeights'>
+                 <div>
+                    <h2>Støy</h2>
+                </div> 
             <div id= 'weight'>
-                <label htmlFor="box-shadow">Dette er en viktig faktor for meg: </label><input type="checkbox" name="check"></input> 
+                <input type="checkbox" name="check"></input> 
+                <label htmlFor="box-shadow"> Viktig? </label>
+            </div>
+
             </div>
             <div id='stoy'>
                 <input type="radio" name="styles" id="box-shadow" className="custom-radio" value={1}></input><label htmlFor="box-shadow">1</label>
