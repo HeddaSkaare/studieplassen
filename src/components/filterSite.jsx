@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, htmlForm } from "react-bootstrap";
 import "../css/filterSite.css";
 import NavBar from "./navBar";
+import { useNavigate } from 'react-router-dom';
 
 function RadioButtons(){
     return(
@@ -38,6 +39,7 @@ export default function FilterSite() {
   const radioButtons2 = document.querySelectorAll('input[name="styles1"]');
   const radioButtons3 = document.querySelectorAll('input[name="styles2"]');
   const radioButtons4 = document.querySelectorAll('input[name="styles3"]');
+  const navigate = useNavigate();
 
   function handleSubmit(event) {
     let selectedStoy;
@@ -73,6 +75,7 @@ export default function FilterSite() {
     console.log(selectedTilgjengelighet)
     console.log(selectedVurdering)
     console.log(selectedNerhet)
+    navigate("/")
   }
   return (
     <>
