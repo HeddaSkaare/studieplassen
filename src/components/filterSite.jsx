@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, htmlForm } from "react-bootstrap";
 import "../css/filterSite.css";
 import NavBar from "./navBar";
+import Slider from "./slider";
 
 function RadioButtons(){
     return(
@@ -83,6 +84,7 @@ export default function FilterSite() {
     <div id='filterBox'>
         <div id='element'>
             <h2>Støy</h2>
+            <h5>Nivå:</h5>
             <div id='stoy' >
                 <input type="radio" name="styles" id="box-shadow" className="custom-radio" value={1}></input><label htmlFor="box-shadow">1</label>
                 <input type="radio" name="styles" id="box-shadow" className="custom-radio" value={2}></input><label htmlFor="box-shadow">2</label>
@@ -90,9 +92,11 @@ export default function FilterSite() {
                 <input type="radio" name="styles" id="box-shadow" className="custom-radio" value={4}></input><label htmlFor="box-shadow">4</label>
                 <input type="radio" name="styles" id="box-shadow" className="custom-radio" value={5}></input><label htmlFor="box-shadow">5</label>
             </div>
+            <Slider></Slider>
         </div>
         <div id='element'>
             <h2>Tilgjengelighet</h2>
+            <h5>Nivå:</h5>
             <div>
                 <input type="radio" name="styles1" id="box-shadow" className="custom-radio" value={1}></input><label htmlFor="box-shadow">1</label>
                 <input type="radio" name="styles1" id="box-shadow" className="custom-radio" value={2}></input><label htmlFor="box-shadow">2</label>
@@ -100,9 +104,11 @@ export default function FilterSite() {
                 <input type="radio" name="styles1" id="box-shadow" className="custom-radio" value={4}></input><label htmlFor="box-shadow">4</label>
                 <input type="radio" name="styles1" id="box-shadow" className="custom-radio" value={5}></input><label htmlFor="box-shadow">5</label>
             </div>
+            <Slider></Slider>
         </div>
         <div id='element'>
             <h2>Vurdering</h2>
+            <h5>Nivå:</h5>
             <div>
                 <input type="radio" name="styles2" id="box-shadow" className="custom-radio" value={1}></input><label htmlFor="box-shadow">1</label>
                 <input type="radio" name="styles2" id="box-shadow" className="custom-radio" value={2}></input><label htmlFor="box-shadow">2</label>
@@ -110,9 +116,11 @@ export default function FilterSite() {
                 <input type="radio" name="styles2" id="box-shadow" className="custom-radio" value={4}></input><label htmlFor="box-shadow">4</label>
                 <input type="radio" name="styles2" id="box-shadow" className="custom-radio" value={5}></input><label htmlFor="box-shadow">5</label>
             </div>
+            <Slider></Slider>
         </div>
         <div id='element'>
             <h2>Nærhet</h2>
+            <h5>Nivå:</h5>
             <div>
                 <input type="radio" name="styles3" id="box-shadow" className="custom-radio" value={1}></input><label htmlFor="box-shadow">1</label>
                 <input type="radio" name="styles3" id="box-shadow" className="custom-radio" value={2}></input><label htmlFor="box-shadow">2</label>
@@ -120,6 +128,7 @@ export default function FilterSite() {
                 <input type="radio" name="styles3" id="box-shadow" className="custom-radio" value={4}></input><label htmlFor="box-shadow">4</label>
                 <input type="radio" name="styles3" id="box-shadow" className="custom-radio" value={5}></input><label htmlFor="box-shadow">5</label>
             </div>
+            <Slider></Slider>
         </div>
         <div id='element'>
             <button id='sok' onClick={handleSubmit}>Finn leseplass</button>

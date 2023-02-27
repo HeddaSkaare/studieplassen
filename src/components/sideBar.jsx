@@ -22,8 +22,9 @@ function SideBar(){
             </h2>
             <div className='inline'>
                 <button id="sortRating"> Vurdering</button>
-                <button id="sortPris">Pris</button>
-                <button id="sortBelastning">Belastning</button>
+                <button id="sortPris">Støy</button>
+                <button id="sortBelastning">Tilgjengelighet</button>
+                <button id="sortBelastning">Nerhet</button>
             </div>
             <StudyCard></StudyCard>
         </div>  
