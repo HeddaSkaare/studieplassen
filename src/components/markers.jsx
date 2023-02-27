@@ -1,10 +1,11 @@
+import L from 'leaflet';
 import "leaflet/dist/leaflet.css";
-import React, {useEffect, useState}  from 'react';
-import  Mazemap  from "mazemap-api";
+import Mazemap from "mazemap-api";
+import React, { useEffect, useState } from 'react';
 import { Marker, Popup } from "react-leaflet";
-import L from 'leaflet'
+import { useNavigate } from 'react-router-dom';
 
-//const position= [63.418277, 10.403647]; 
+//const position= [63.418277, 10.403647];
 
 const iconP = L.icon({
   iconUrl: require('../static/icons/Point2.png'),
@@ -19,13 +20,19 @@ function Markers() {
     .then((response)=> response.json())
 
     //.then((data)=> console.log(data))
-    .then((data)=> 
+    .then((data)=>
     //console.log(data.pois.map((poi)=> poi.point.coordinates), "wæ"),
     //data.pois.map((poi)=>console.log(poi.point.coordinates))
     setPoints(data.pois.map((poi)=> poi.point.coordinates))
     )
   },[]);
   //console.log(points[0][0], "ye")
+
+  const navigate = useNavigate();
+
+  function Click() {
+    navigate("/addplace")
+  }
 
   return (
     <div>
@@ -35,7 +42,7 @@ function Markers() {
           return (
           <Marker position={coord} icon={iconP}>
             <Popup>
-              <button>Legg til info</button>
+              <button onClick={() => Click()}>Legg til info</button>
             </Popup>
           </Marker>)
         })
