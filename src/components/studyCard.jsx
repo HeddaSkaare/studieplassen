@@ -8,7 +8,6 @@ function StudyCard(){
         <div id='studyCard_holder'>
             <div id='study-card' >
                 <div className='studyCard_img'>
-                    <img src={'../static/bilder/lesesal1.jpeg'}/>
                 </div>
                 <div className='studyCard_info'>
                     <h2 className='movieCardTitle'>
@@ -26,7 +25,6 @@ function StudyCard(){
             </div>
             <div id='study-card2' >
                 <div className='studyCard_img'>
-                    <img src={'../static/bilder/lesesal2.jpeg'}/>
                 </div>
                 <div className='studyCard_info'>
                     <h2 className='movieCardTitle'>
@@ -44,7 +42,6 @@ function StudyCard(){
             </div>
             <div id='study-card3' >
                 <div className='studyCard_img'>
-                    <img src={'../static/bilder/lesesal3.gif'}/>
                 </div>
                 <div className='studyCard_info'>
                     <h2 className='movieCardTitle'>
@@ -62,7 +59,6 @@ function StudyCard(){
             </div>
             <div id='study-card4' >
                 <div className='studyCard_img'>
-                    <img src={'../static/bilder/lesesal4.jpeg'}/>
                 </div>
                 <div className='studyCard_info'>
                     <h2 className='movieCardTitle'>

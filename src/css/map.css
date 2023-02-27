@@ -40,3 +40,7 @@
 float: right;
 margin-right: 5%;
 }
+
+#sideBar {
+    margin-left: 15px;
+}
