@@ -82,11 +82,16 @@ export default function FilterSite() {
     <div>
         <NavBar></NavBar>
     </div>
-    <header id='header'><h1>Finn studieplass</h1></header>
+    <header class='header'><h1>Finn studieplass</h1></header>
+     <p>Her kan du legge inn dine ønsker for studieplassen</p>
     <div id='filterBox'>
+        
         <div id='element'>
             <h2>Støy</h2>
-            <div id='stoy' >
+            <div id= 'weight'>
+                <label htmlFor="box-shadow">Dette er en viktig faktor for meg: </label><input type="checkbox" name="check"></input> 
+            </div>
+            <div id='stoy'>
                 <input type="radio" name="styles" id="box-shadow" className="custom-radio" value={1}></input><label htmlFor="box-shadow">1</label>
                 <input type="radio" name="styles" id="box-shadow" className="custom-radio" value={2}></input><label htmlFor="box-shadow">2</label>
                 <input type="radio" name="styles" id="box-shadow" className="custom-radio" value={3}></input><label htmlFor="box-shadow">3</label>
@@ -95,7 +100,17 @@ export default function FilterSite() {
             </div>
         </div>
         <div id='element'>
-            <h2>Tilgjengelighet</h2>
+            <div class='headerWeights'>
+                 <div>
+                    <h2>Tilgjengelighet</h2>
+                </div> 
+            <div id= 'weight'>
+                <input type="checkbox" name="check"></input> 
+                <label htmlFor="box-shadow"> Viktig? </label>
+            </div>
+
+            </div>
+            
             <div>
                 <input type="radio" name="styles1" id="box-shadow" className="custom-radio" value={1}></input><label htmlFor="box-shadow">1</label>
                 <input type="radio" name="styles1" id="box-shadow" className="custom-radio" value={2}></input><label htmlFor="box-shadow">2</label>

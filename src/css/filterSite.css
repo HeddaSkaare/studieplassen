@@ -7,9 +7,12 @@
   margin: auto;
   box-shadow: 2px 3px 4px 5px rgba(0, 0, 0, 0.4);
 }
-#header{
+.header{
     text-align: center;
- 
+}
+
+p{
+    text-align: center;
 }
 #element{
     text-align: center;
@@ -81,4 +84,10 @@ label {
     background-color: rgb(5, 90, 12); /* Green */
 }
 
+.headerWeights div{ 
+    display: inline-block;
+    flex-direction: row;
+    text-align: center;
+    margin-inline-end: 12px;
 
+}
