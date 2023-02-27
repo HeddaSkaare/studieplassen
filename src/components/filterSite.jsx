@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, htmlForm } from "react-bootstrap";
 import "../css/filterSite.css";
 import NavBar from "./navBar";
 
@@ -16,9 +16,63 @@ function RadioButtons(){
 }
 
 export default function FilterSite() {
-  
+//   const [stoy,setStoy] = useState();
+//   const [tilgjengelighet,setTilgjengelighet] = useState();
+//   const [vurdering,setVurdering] = useState();
+//   const [nerhet,setNerhet] = useState();
+ 
+//   const btn = document.querySelector('#sok');
+//   const radioButtons = document.querySelectorAll('input[name="styles"]');
+//   btn.addEventListener("click", ()=>{
+//     let selectedStoy;
+//     htmlFor (const radioButton of radioButtons){
+//         if (radioButton.checked){
+//             selectedStoy = radioButton.value;
+//             break;
+//         }
+//         console.log(selectedStoy)
+//     }
+    
+//   })
+  const radioButtons1 = document.querySelectorAll('input[name="styles"]');
+  const radioButtons2 = document.querySelectorAll('input[name="styles1"]');
+  const radioButtons3 = document.querySelectorAll('input[name="styles2"]');
+  const radioButtons4 = document.querySelectorAll('input[name="styles3"]');
+
   function handleSubmit(event) {
-    event.preventDefault();
+    let selectedStoy;
+    let selectedTilgjengelighet;
+    let selectedVurdering;
+    let selectedNerhet;
+    
+    for (const radioButton1 of radioButtons1){
+        if (radioButton1.checked){
+            selectedStoy = radioButton1.value;
+            break;
+        }
+    }
+    for (const radioButton2 of radioButtons2){
+        if (radioButton2.checked){
+            selectedTilgjengelighet = radioButton2.value;
+            break;
+        }
+    }
+    for (const radioButton3 of radioButtons3){
+        if (radioButton3.checked){
+            selectedVurdering = radioButton3.value;
+            break;
+        }
+    }
+    for (const radioButton4 of radioButtons4){
+        if (radioButton4.checked){
+            selectedNerhet = radioButton4.value;
+            break;
+        }
+    }
+    console.log(selectedStoy)
+    console.log(selectedTilgjengelighet)
+    console.log(selectedVurdering)
+    console.log(selectedNerhet)
   }
   return (
     <>
@@ -29,46 +83,46 @@ export default function FilterSite() {
     <div id='filterBox'>
         <div id='element'>
             <h2>Støy</h2>
-            <div id='vurdering'>
-                <input type="radio" name="styles" id="box-shadow" class="custom-radio"></input><label for="box-shadow">1</label>
-                <input type="radio" name="styles" id="box-shadow" class="custom-radio"></input><label for="box-shadow">2</label>
-                <input type="radio" name="styles" id="box-shadow" class="custom-radio"></input><label for="box-shadow">3</label>
-                <input type="radio" name="styles" id="box-shadow" class="custom-radio"></input><label for="box-shadow">4</label>
-                <input type="radio" name="styles" id="box-shadow" class="custom-radio"></input><label for="box-shadow">5</label>
+            <div id='stoy' >
+                <input type="radio" name="styles" id="box-shadow" className="custom-radio" value={1}></input><label htmlFor="box-shadow">1</label>
+                <input type="radio" name="styles" id="box-shadow" className="custom-radio" value={2}></input><label htmlFor="box-shadow">2</label>
+                <input type="radio" name="styles" id="box-shadow" className="custom-radio" value={3}></input><label htmlFor="box-shadow">3</label>
+                <input type="radio" name="styles" id="box-shadow" className="custom-radio" value={4}></input><label htmlFor="box-shadow">4</label>
+                <input type="radio" name="styles" id="box-shadow" className="custom-radio" value={5}></input><label htmlFor="box-shadow">5</label>
             </div>
         </div>
         <div id='element'>
             <h2>Tilgjengelighet</h2>
             <div>
-                <button id='button'>1</button>
-                <button id='button'>2</button>
-                <button id='button'>3</button>
-                <button id='button'>4</button>
-                <button id='button'>5</button>
+                <input type="radio" name="styles1" id="box-shadow" className="custom-radio" value={1}></input><label htmlFor="box-shadow">1</label>
+                <input type="radio" name="styles1" id="box-shadow" className="custom-radio" value={2}></input><label htmlFor="box-shadow">2</label>
+                <input type="radio" name="styles1" id="box-shadow" className="custom-radio" value={3}></input><label htmlFor="box-shadow">3</label>
+                <input type="radio" name="styles1" id="box-shadow" className="custom-radio" value={4}></input><label htmlFor="box-shadow">4</label>
+                <input type="radio" name="styles1" id="box-shadow" className="custom-radio" value={5}></input><label htmlFor="box-shadow">5</label>
             </div>
         </div>
         <div id='element'>
             <h2>Vurdering</h2>
             <div>
-                <button id='button'>1</button>
-                <button id='button'>2</button>
-                <button id='button'>3</button>
-                <button id='button'>4</button>
-                <button id='button'>5</button>
+                <input type="radio" name="styles2" id="box-shadow" className="custom-radio" value={1}></input><label htmlFor="box-shadow">1</label>
+                <input type="radio" name="styles2" id="box-shadow" className="custom-radio" value={2}></input><label htmlFor="box-shadow">2</label>
+                <input type="radio" name="styles2" id="box-shadow" className="custom-radio" value={3}></input><label htmlFor="box-shadow">3</label>
+                <input type="radio" name="styles2" id="box-shadow" className="custom-radio" value={4}></input><label htmlFor="box-shadow">4</label>
+                <input type="radio" name="styles2" id="box-shadow" className="custom-radio" value={5}></input><label htmlFor="box-shadow">5</label>
             </div>
         </div>
         <div id='element'>
             <h2>Nærhet</h2>
             <div>
-                <button id='button'>1</button>
-                <button id='button'>2</button>
-                <button id='button'>3</button>
-                <button id='button'>4</button>
-                <button id='button'>5</button>
+                <input type="radio" name="styles3" id="box-shadow" className="custom-radio" value={1}></input><label htmlFor="box-shadow">1</label>
+                <input type="radio" name="styles3" id="box-shadow" className="custom-radio" value={2}></input><label htmlFor="box-shadow">2</label>
+                <input type="radio" name="styles3" id="box-shadow" className="custom-radio" value={3}></input><label htmlFor="box-shadow">3</label>
+                <input type="radio" name="styles3" id="box-shadow" className="custom-radio" value={4}></input><label htmlFor="box-shadow">4</label>
+                <input type="radio" name="styles3" id="box-shadow" className="custom-radio" value={5}></input><label htmlFor="box-shadow">5</label>
             </div>
         </div>
         <div id='element'>
-            <button id='sok'>Finn leseplass</button>
+            <button id='sok' onClick={handleSubmit}>Finn leseplass</button>
         </div>
     </div>
     </>

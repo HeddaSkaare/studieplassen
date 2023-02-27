@@ -45,6 +45,13 @@ label {
 }
 #box-shadow {
     box-shadow: 0 0 0 1px #999;
+    /* hiding browser el */
+    appearance: none;
+    /* Safari support */
+    -webkit-appearance: none;
+    border: 0.2rem solid #fff;
+    background-color: var(--bg-color);
+    border-radius: 50%;
 }
 
 #box-shadow:hover {
@@ -52,8 +59,8 @@ label {
 }
 
 #box-shadow:checked {
-    box-shadow: 0 0 0 1px #ff5722;
-    background-color: #ff5722;
+    box-shadow: 0 0 0 1px #159ad8;
+    background-color: #159ad8;
     border-width: 0.2rem;
 }
 #sok{
@@ -68,5 +75,10 @@ label {
   font-size: 16px;
   margin-top: 50px;
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.4);
+  
 }
+#sok:active{
+    background-color: rgb(5, 90, 12); /* Green */
+}
+
 
