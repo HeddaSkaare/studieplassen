@@ -6,7 +6,8 @@ import React from 'react';
 
 function NavBar(){
     return(
-        <div class ="navBar">
+        <div className ="navBar">
+            <a id="filterSite" href="filterSite">Finn studieplass</a>
             <a id="home" href="/">Studieplassen</a>
             <a id="logIn"href="logIn">Logg inn</a>
         </div>
