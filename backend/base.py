@@ -1,13 +1,13 @@
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
-api = Flask(__name__)
+app = Flask(__name__)
 
-@api.route("/profile")
+app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:postgres@localhost/StudyPlace'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.secret_key = 'aaaa'
 
-def my_profile():
-    response_body = {
-        "name": "Nagato",
-        "about" :"Hello! I'm a full stack developer that loves python and javascript"
-    }
+db = SQLAlchemy(app)
 
-    return response_body
+if __name__ == '__main__':
+    app.run()
