@@ -1,12 +1,13 @@
-#map{
-
-    margin-right: 0;
-}
-#sideBar{
+ #map{
+    position: relative;
+    float: right;
+    align-items: right;
+}   
+/* #sideBar{
     grid-column-start: 1;
     grid-column-end: 3;
     margin-left: 0;
-}
+} */
 .navBar {
     grid-column: 1 / span 3;
     background-color: #383838;

@@ -7,6 +7,7 @@ export default function AddPlace() {
     const [rating, setRating] = useState(3)
     const [from, setFrom] = useState("");
     const [to, setTo] = useState("")
+    
     function validateForm() {
       return noice.length > 0 && rating <= 10 && rating>=1;
     }
