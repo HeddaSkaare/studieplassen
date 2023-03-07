@@ -1,13 +1,32 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, jsonify, request, send_from_directory
+import psycopg2
+from flask_cors import CORS
+from config import config
+from contextlib import closing
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='',static_folder='../src/build', template_folder='?', )
+CORS(app,support_credentials=True)
 
-app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:postgres@localhost/StudyPlace'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = 'aaaa'
+def get_connection():
+    connection = psycopg2.connect(**config())
+    connection.autocommit = True
+    return connection
 
-db = SQLAlchemy(app)
+
+@app.route('/api/test/', methods=['GET'])
+def get_test():
+    conn=get_connection() 
+    if request.method=='GET':
+        with closing(conn.cursor()) as cur:
+            cur.execute(
+                f"SELECT *\
+                  FROM test;"
+            )
+            rows = cur.fetchall()
+        print(rows)
+        return list(rows)
+            
+# json_agg (st_asgeojson (points.*)::json)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
