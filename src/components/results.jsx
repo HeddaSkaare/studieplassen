@@ -1,4 +1,6 @@
 import "leaflet/dist/leaflet.css";
+import data from "../data/vurdering.json";
+import points from "../data/pointInfo.json";
 import {
   MapContainer,
   TileLayer,
@@ -26,7 +28,7 @@ function Results(){
                 Dine beste studieplasser
             </h2>
             <div className='results'>
-            
+                {}
             </div>
         </div>  
     )
