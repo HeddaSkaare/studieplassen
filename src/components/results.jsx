@@ -1,7 +1,6 @@
 import "leaflet/dist/leaflet.css";
-import data from"../data/vurdering.json"
-import "../data/pointInfo.json"
-
+import data from "../data/vurdering.json";
+import points from "../data/pointInfo.json";
 import {
   MapContainer,
   TileLayer,
