@@ -20,11 +20,10 @@ function loadResults(event) {
     }
 
 function Results(){
-    console.log(data.vurderinger[0].kapasitet)
+    //console.log(data.vurderinger[0].kapasitet)
     /* fetch("../data/vurdering.json")
     .then((res)=>res.json())
     .then((json)=>console.log(json)) */
-
 
 
     return(
