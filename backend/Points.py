@@ -20,22 +20,24 @@ for poi in points:
     try:
         response = requests.get(f'https://api.mazemap.com/api/pois/{poi}/?srid=4326') 
         data = json.loads(response.content)
-        if ((data['point'] == None) and (data['mapText'] == None)):
-            # poi_info = {
-            #     'coordinates': data['point']['coordinates'],
-            #     'floorname': data['floorName'],
-            #     'buildingName': data['buildingName'],
-            #     'maptext': data['mapText']
-            # }
-            # infos.append((data['poiId'], poi_info))
+        if (not(data['point'] == None) and not(data['mapText'] == None)):
+            poi_info = {
+                'coordinates': data['point']['coordinates'],
+                'floorname': data['floorName'],
+                'buildingName': data['buildingName'],
+                'maptext': data['mapText']
+            }
+            infos.append((data['poiId'], poi_info))
+        else: 
+            points.remove(poi)
             points.remove(poi)
     except json.decoder.JSONDecodeError as e:
         print(f"Error2: {e}")
         print(response.content)
         continue
 
-# with open('infos.json', 'w') as f:
-#     json.dump(dict(infos), f)
+with open('infos.json', 'w') as f:
+    json.dump(dict(infos), f)
 
 with open('pointIds.json', 'w') as f:
     json.dump(points, f)

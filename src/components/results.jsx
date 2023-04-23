@@ -33,7 +33,7 @@ function Results(){
             </h2>
 
            
-            {data.vurderinger.map((item)=>(
+            {data.data.map((item)=>(
             <div className='results'>
                 <p>{item.Korttilgang}</p>
                 <p>{item.Vurdering}</p>
@@ -41,9 +41,6 @@ function Results(){
                 <p>{item.poiId}</p>
             </div>      
             ))}
-
-            
-            
         </div>  
     )
 };

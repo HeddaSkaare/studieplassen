@@ -4,47 +4,50 @@ import Mazemap from "mazemap-api";
 import React, { useEffect, useState } from 'react';
 import { Marker, Popup } from "react-leaflet";
 import { useNavigate } from 'react-router-dom';
+import points from '../data/pointIds.json';
+import info from '../data/infos.json';
 
-//const position= [63.418277, 10.403647];
 
 const iconP = L.icon({
   iconUrl: require('../static/icons/Point2.png'),
   iconSize: 40
 })
 
+
 function Markers() {
-  const [points, setPoints] = useState([]);
-  const find = useEffect(() => {
-    console.log(Mazemap.getPOI(1));
-    fetch('https://api.mazemap.com/api/campus/1/poitypes/4232/pois/')
-    .then((response)=> response.json())
 
-    //.then((data)=> console.log(data))
-    .then((data)=>
-    //console.log(data.pois.map((poi)=> poi.point.coordinates), "wæ"),
-    //data.pois.map((poi)=>console.log(poi.point.coordinates))
-    setPoints(data.pois.map((poi)=> poi.point.coordinates))
-    )
-  },[]);
-  //console.log(points[0][0], "ye")
-
+  const myList = points.filter((element) => info[element] != undefined);
+  
   const navigate = useNavigate();
+  const [reload, setReload] = useState(false);
 
-  function Click() {
+  function Click(point) {
+    
     navigate("/addplace")
   }
+  useEffect(() => {
+    if (reload) {
+      setReload(false);
+    }
+  }, [reload]);
 
   return (
     <div>
       {
-        points.map((point)=>{
-          const coord = [point[1],point[0]]
+        myList.map((point)=>{
+          const coord = [info[point].coordinates[1], info[point].coordinates[0]]
+          const floor = info[point].floorname
+          const name = info[point].maptext
+          const building = info[point].buildingName
           return (
-          <Marker position={coord} icon={iconP}>
-            <Popup>
-              <button onClick={() => Click()}>Legg til info</button>
-            </Popup>
-          </Marker>)
+            <Marker position={coord} icon={iconP} onClick={()=> setReload(true)}>
+              <Popup>
+                <p><b>{name}</b></p>
+                <p>{building}</p>
+                <p>{floor}</p>
+                <button onClick={() => Click(point)}>Legg til info</button>
+              </Popup>
+            </Marker>)
         })
       }
     </div>

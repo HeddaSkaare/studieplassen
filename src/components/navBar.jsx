@@ -2,8 +2,6 @@ import "leaflet/dist/leaflet.css";
 
 import React from 'react';
 
-
-
 function NavBar(){
     return(
         <div className ="navBar">
