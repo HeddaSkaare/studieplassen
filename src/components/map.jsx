@@ -47,7 +47,7 @@ function LocationMarker() {
 function Map(){
     const animateRef = useRef(false)
     return(
-    <MapContainer id = 'map' center={[63.416877, 10.405647]} zoom={16} scrollWheelZoom={true}>
+    <MapContainer id = 'map' center={[63.416877, 10.405647]} zoom={14} scrollWheelZoom={true}>
         <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

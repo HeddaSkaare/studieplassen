@@ -20,11 +20,10 @@ function loadResults(event) {
     }
 
 function Results(){
-    console.log(data.vurderinger[0].kapasitet)
+    //console.log(data.vurderinger[0].kapasitet)
     /* fetch("../data/vurdering.json")
     .then((res)=>res.json())
     .then((json)=>console.log(json)) */
-
 
 
     return(
@@ -34,7 +33,7 @@ function Results(){
             </h2>
 
            
-            {data.vurderinger.map((item)=>(
+            {data.data.map((item)=>(
             <div className='results'>
                 <p>{item.Korttilgang}</p>
                 <p>{item.Vurdering}</p>
@@ -42,9 +41,6 @@ function Results(){
                 <p>{item.poiId}</p>
             </div>      
             ))}
-
-            
-            
         </div>  
     )
 };
