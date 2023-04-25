@@ -5,11 +5,11 @@ app = Flask(__name__)
 
 # Database configuration
 db_config = {
-    'host': 'your_host',
-    'port': 'your_port',
-    'dbname': 'your_dbname',
-    'user': 'your_username',
-    'password': 'your_password'
+    'host': 'geomatikk.ibm.ntnu.no',
+    'port': '5433',
+    'dbname': 'Study_place',
+    'user': 'postgres',
+    'password': 'postgres'
 }
 
 # Connect to the database
