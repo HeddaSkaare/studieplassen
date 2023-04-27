@@ -22,12 +22,13 @@ for poi in points:
         data = json.loads(response.content)
         if (not(data['point'] == None) and not(data['mapText'] == None)):
             poi_info = {
+                
                 'coordinates': data['point']['coordinates'],
                 'floorname': data['floorName'],
                 'buildingName': data['buildingName'],
                 'maptext': data['mapText']
             }
-            infos.append((data['poiId'], poi_info))
+            infos.append(poi_info)
         else: 
             points.remove(poi)
             points.remove(poi)
