@@ -1,2 +1,2 @@
 FLASK_APP=base.py
-FLASK_DEBUG=development
+FLASK_DEBUG=True

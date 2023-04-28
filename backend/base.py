@@ -34,11 +34,10 @@ def get_test():
         print(request.data)
         with closing(conn.cursor()) as cur:
             cur.execute(
-                f"SELECT *\
-                  FROM test;"
+                """SELECT *\
+                  FROM "Punkter";"""
             )
             rows = cur.fetchall()
-        print(rows)
         return list(rows)
     # if request.method=='POST':
     #     with closing(conn.cursor()) as cur:
