@@ -1,0 +1,25 @@
+Listen 7662
+
+<VirtualHost *:7662>
+	ServerName geomatikk.ibm.ntnu.no
+	ServerAdmin webmaster@localhost
+	DocumentRoot /html
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+	Header set Access-Control-Allow-Origin "*"
+	Header add Access-Control-Allow-Headers "origin, x-requested-with, contenttype"
+	Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
+
+	<Directory /gib2_mapstudy/backend>
+		WSGIProcessGroup gib2_mapstudy
+		WSGIApplicationGroup %{GLOBAL}
+		Order deny,allow
+		Allow from all
+	</Directory>
+
+	WSGIDaemonProcess gib2_mapstudy user=www-data group=www-data threads=5
+	WSGIProcessGroup gib2_mapstudy
+	WSGIScriptAlias / /gib2_mapstudy/backend/base.wsgi
+</VirtualHost>
+
