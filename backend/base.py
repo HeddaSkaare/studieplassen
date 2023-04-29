@@ -15,15 +15,42 @@ def get_connection():
     return connection
 
      
-@app.route('/api/test', methods=['GET'])
-def get_test():
+@app.route('/api', methods=['GET'])
+def get_joined():#henter både punkter og vurdering joined
+    conn=get_connection() 
+    if request.method=='GET':
+        print(request.data)
+        with closing(conn.cursor()) as cur:
+            cur.execute(
+                """SELECT "poiID", ST_X(coordinates) AS lat, ST_Y(coordinates) AS lng, floorname, "buildingName", maptext, "StoyNiva","Vurdering","Korttilgang",kapasitet\
+                  FROM "Punkter" LEFT OUTER JOIN "Vurdering" ON "Punkter"."poiID" = "Vurdering"."poiId" ;
+                """
+            )
+            rows = cur.fetchall()
+        return list(rows)
+@app.route('/api/punkter', methods=['GET'])
+def get_punkter():#henter punkter
+    conn=get_connection() 
+    if request.method=='GET':
+        print(request.data)
+        with closing(conn.cursor()) as cur:
+            cur.execute(
+                """SELECT "poiID", ST_X(coordinates) AS lat, ST_Y(coordinates) AS lng, floorname, "buildingName", maptext\
+                  FROM "Punkter" ;
+                """
+            )
+            rows = cur.fetchall()
+        return list(rows)
+@app.route('/api/Vurderinger', methods=['GET'])
+def get_vurdering():#henter vurdering 
     conn=get_connection() 
     if request.method=='GET':
         print(request.data)
         with closing(conn.cursor()) as cur:
             cur.execute(
                 """SELECT *\
-                  FROM "Punkter";"""
+                  FROM "Vurdering" ;
+                """
             )
             rows = cur.fetchall()
         return list(rows)
