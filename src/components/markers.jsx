@@ -6,6 +6,7 @@ import { Marker, Popup } from "react-leaflet";
 import { useNavigate } from 'react-router-dom';
 import points from '../data/pointIds.json';
 import info from '../data/infos.json';
+import {makeVar } from '@apollo/client';
 
 
 const iconP = L.icon({
@@ -13,16 +14,17 @@ const iconP = L.icon({
   iconSize: 40
 })
 
-
+export const poiId = makeVar("");
+export const poiName = makeVar("");
 function Markers() {
 
   const myList = points.filter((element) => info[element] != undefined);
-  
   const navigate = useNavigate();
   const [reload, setReload] = useState(false);
 
-  function Click(point) {
-    
+  function Click(point,name) {
+    poiId(point)
+    poiName(name)
     navigate("/addplace")
   }
   useEffect(() => {
@@ -45,7 +47,7 @@ function Markers() {
                 <p><b>{name}</b></p>
                 <p>{building}</p>
                 <p>{floor}</p>
-                <button onClick={() => Click(point)}>Legg til info</button>
+                <button onClick={() => Click(point,name)}>Legg til info</button>
               </Popup>
             </Marker>)
         })
