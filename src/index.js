@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import App from "./App";
-import AddPlace from "./components/addPlace";
-import FilterSite from "./components/filterSite";
-import Login from "./components/loginPage";
+import App from "../src/App";
+import AddPlace from "../src/components/addPlace";
+import FilterSite from "../src/components/filterSite";
+import Login from "../src/components/loginPage";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import Results from "./components/results";

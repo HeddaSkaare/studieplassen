@@ -5,12 +5,7 @@ from config import config
 from contextlib import closing
 import json
 
-# dict = []
-# with open('infos-kopi.json') as my_file:
-#     data= json.load(my_file)
-#     for poi in data.keys():
-#         dict += [[poi,data[poi]['coordinates'], data[poi]['floorname'],  data[poi]['buildingName'], data[poi]['maptext']]]
-# print(dict)
+
 app = Flask(__name__, static_url_path='',static_folder='../frontend/src/build', template_folder='?', )
 CORS(app,support_credentials=True)
 
@@ -19,15 +14,8 @@ def get_connection():
     connection.autocommit = True
     return connection
 
-# with psycopg2.connect('') as con:'
-#     with con.cursor() as cur:
-#         cur.execute("""create table if not exists Point(
-#             poiID integer, coordinates point, floorname integer, buildingName varchar, maptext varchar)""")
-#         query_sql = """insert into Point
-#         select * from dict"""
-#         cur.execute(query_sql, dict)'
-        
-@app.route('/api/test/', methods=['GET','POST'])
+     
+@app.route('/api/test', methods=['GET'])
 def get_test():
     conn=get_connection() 
     if request.method=='GET':
@@ -39,28 +27,37 @@ def get_test():
             )
             rows = cur.fetchall()
         return list(rows)
-    # if request.method=='POST':
-    #     with closing(conn.cursor()) as cur:
-    #         cur.execute("""create table if not exists Point(
-    #             poiID integer, coordinates point, floorname integer, buildingName varchar, maptext varchar)""")
-    #         for info in dict:
-                
-            
-        
-    
-    # if request.method=='POST':
-        
-    #     with closing(conn.cursor()) as cur:
-    #         cur.execute(
-    #             f"INSERT INTO info(PunktID,StoyNiva, Vurdering, Korttilgang, Storrelse)\
-    #             VALUES ({poiID},{stoy}, {vur}, {kort}, {storrelse} ) "
-    #         )
-    #         rows = cur.fetchall()
-    #     print(rows)
-    #     return list(rows)
-            
-            
-# json_agg (st_asgeojson (points.*)::json)
+
+@app.route('/addplace', methods=['POST'])
+def addplace():
+    data = request.get_json()
+    poiId = data['poiId']
+    StoyNiva = data['StoyNiva']
+    Vurdering = data['Vurdering']
+    Korttilgang = data['Korttilgang']
+    kapasitet = data['kapasitet']
+    conn=get_connection()              
+    with closing(conn.cursor()) as cur:
+        query_sql = """
+            SELECT * FROM "Vurdering" WHERE "poiId" = %s
+            """
+        cur.execute(query_sql, (poiId,))
+        existing_record = cur.fetchone()
+        if existing_record: 
+            query_sql = """
+                UPDATE "Vurdering"
+                SET "StoyNiva" = %s, "Vurdering" = %s, "Korttilgang" = %s, "kapasitet" = %s
+                WHERE "poiId" = %s
+            """
+            cur.execute(query_sql, (StoyNiva, Vurdering, Korttilgang, kapasitet, poiId))
+        else:   
+            query_sql = """
+                    insert into "Vurdering"("poiId","StoyNiva","Vurdering","Korttilgang",kapasitet)
+                    values (%s, %s, %s, %s, %s)
+                    """  
+            cur.execute(query_sql, (poiId, StoyNiva,Vurdering,Korttilgang,kapasitet))        
+    return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+
 
 if __name__ == '__main__':
     app.run(debug=True)
