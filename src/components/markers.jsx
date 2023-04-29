@@ -62,7 +62,7 @@ function Markers() {
                 <p>{building}</p>
                 <p>floor: {floor}</p>
                 <p>StoyNiva {point[6]}, Vurdering {point[7]}</p>
-                <p>Korttilgang {point[8] ? 'Access Granted' : 'Access Denied'}, kapasitet {point[9]}</p>
+                <p>Korttilgang {point[8] ? 'Ja' : 'Nei'}, kapasitet {point[9]}</p>
                 <button onClick={() => Click(point[0],name)}>Legg til info</button>
               </Popup>
             </Marker>)
