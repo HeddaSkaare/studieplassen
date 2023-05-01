@@ -22,8 +22,8 @@ def get_joined():#henter både punkter og vurdering joined
         print(request.data)
         with closing(conn.cursor()) as cur:
             cur.execute(
-                """SELECT "poiID", ST_X(coordinates) AS lat, ST_Y(coordinates) AS lng, floorname, "buildingName", maptext, "StoyNiva","Vurdering","Korttilgang",kapasitet\
-                  FROM "Punkter" LEFT OUTER JOIN "Vurdering" ON "Punkter"."poiID" = "Vurdering"."poiId" ;
+                """SELECT "poiID", ST_X(coordinates) AS lat, ST_Y(coordinates) AS lng, floorname, "buildingName", maptext, "StoyNiva","Vurdering","Korttilgang","Storrelse"\
+                  FROM "Punkter" LEFT OUTER JOIN "Info" ON "Punkter"."poiID" = "Info"."PunktID" ;
                 """
             )
             rows = cur.fetchall()
@@ -49,7 +49,7 @@ def get_vurdering():#henter vurdering
         with closing(conn.cursor()) as cur:
             cur.execute(
                 """SELECT *\
-                  FROM "Vurdering" ;
+                  FROM "Info" ;
                 """
             )
             rows = cur.fetchall()
