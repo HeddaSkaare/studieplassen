@@ -166,7 +166,6 @@ export default function FilterSite() {
         } else {
             liste_med_plasser = pois.filter((element) => element[8] == false);
         }
-        console.log(liste_med_plasser);
         let vektStoy = checkStoy ? 5 : 1;
         let vektVurdering = checkVurdering ? 5 : 1;
         let vektAvstand = checkNerhet ? 5 : 1;
