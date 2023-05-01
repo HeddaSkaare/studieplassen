@@ -7,7 +7,7 @@ import React, {useRef,useState} from 'react';
 import L from 'leaflet';
 import { makeVar } from "@apollo/client";
 
-export let clicked = makeVar("")
+export let clicked = makeVar("");
 function Results(){
 
     const pois = [];
