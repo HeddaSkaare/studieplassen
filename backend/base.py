@@ -22,8 +22,8 @@ def get_joined():#henter både punkter og vurdering joined
         print(request.data)
         with closing(conn.cursor()) as cur:
             cur.execute(
-                """SELECT "poiID", ST_X(coordinates) AS lat, ST_Y(coordinates) AS lng, floorname, "buildingName", maptext, "StoyNiva","Vurdering","Korttilgang",kapasitet\
-                  FROM "Punkter" LEFT OUTER JOIN "Vurdering" ON "Punkter"."poiID" = "Vurdering"."poiId" ;
+                """SELECT "poiID", ST_X(coordinates) AS lat, ST_Y(coordinates) AS lng, floorname, "buildingName", maptext, "StoyNiva","Vurdering","Korttilgang","Storrelse"\
+                  FROM "Punkter" LEFT OUTER JOIN "Info" ON "Punkter"."poiID" = "Info"."PunktID" ;
                 """
             )
             rows = cur.fetchall()
@@ -49,7 +49,7 @@ def get_vurdering():#henter vurdering
         with closing(conn.cursor()) as cur:
             cur.execute(
                 """SELECT *\
-                  FROM "Vurdering" ;
+                  FROM "Info" ;
                 """
             )
             rows = cur.fetchall()
@@ -66,20 +66,20 @@ def addplace():
     conn=get_connection()              
     with closing(conn.cursor()) as cur:
         query_sql = """
-            SELECT * FROM "Vurdering" WHERE "poiId" = %s
+            SELECT * FROM "Info" WHERE "PunktID" = %s
             """
         cur.execute(query_sql, (poiId,))
         existing_record = cur.fetchone()
         if existing_record: 
             query_sql = """
-                UPDATE "Vurdering"
-                SET "StoyNiva" = %s, "Vurdering" = %s, "Korttilgang" = %s, "kapasitet" = %s
-                WHERE "poiId" = %s
+                UPDATE "Info"
+                SET "StoyNiva" = %s, "Vurdering" = %s, "Korttilgang" = %s, "Storrelse"= %s
+                WHERE "PunktID" = %s
             """
             cur.execute(query_sql, (StoyNiva, Vurdering, Korttilgang, kapasitet, poiId))
         else:   
             query_sql = """
-                    insert into "Vurdering"("poiId","StoyNiva","Vurdering","Korttilgang",kapasitet)
+                    insert into "Info"("PunktID", "StoyNiva", "Vurdering", "Korttilgang", "Storrelse")
                     values (%s, %s, %s, %s, %s)
                     """  
             cur.execute(query_sql, (poiId, StoyNiva,Vurdering,Korttilgang,kapasitet))        
