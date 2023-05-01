@@ -2,6 +2,10 @@
     position: relative;
     float: right;
     align-items: right;
+    height: 100vh;
+    width: 100vw;
+    margin-right: 2px;
+    margin-left: 2px;
 }   
 /* #sideBar{
     grid-column-start: 1;

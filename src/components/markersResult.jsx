@@ -50,6 +50,8 @@ function MarkersResult({bgColor}) {
           return ( 
             <Marker position={coord} icon={iconP}  onClick={()=> setReload(true)}>
             {/* <Tooltip className={style} direction="top" offset={[0, -15]} opacity={0.9} permanent>{name}</Tooltip> */}
+             <Tooltip className="my-tooltip" direction="top" style={{ backgroundColor: bgColor }}
+             offset={[0, -15]} opacity={0.9} permanent>{name}</Tooltip>
             </Marker>)
         })
       }
