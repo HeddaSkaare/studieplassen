@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client';
-import L, { tooltip } from 'leaflet';
+import L from 'leaflet';
 import "leaflet/dist/leaflet.css";
 import React, { useEffect, useState } from 'react';
 import { Marker,Tooltip, Popup } from "react-leaflet";
