@@ -1,28 +1,39 @@
 @media only screen and (max-width: 600px) {
     .navBar a {
         font-size: 12px;
+        padding-left: 0px;
+        padding-right: 0px;
     }
 }
-
 
 @media only screen and (min-width: 601px) {
 
     .navBar a {
             font-size: 17px;
         }
+
+    .navBar{
+        padding-left: 50px;
+        padding-right: 10px;
+    }
 }
     .navBar {
         grid-column: 1 / span 3;
         background-color: #a8bbb5;
         overflow: hidden;
         padding: 10px;
+    
         position: relative;
         font-family: 'Futura';
     }
-
+#logIn{
+    position: right;
+    justify-self: end;
+}
     .navBar a {
         float: left;
         padding: 12px;
+    
         color: #3e4543;
         font-weight: 600;
         text-decoration: none;

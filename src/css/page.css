@@ -82,7 +82,7 @@
 }
 
 .sideBar2{
-    max-height: 670px;
+    max-height: 617px;
     overflow-y: scroll;
 }
 
@@ -109,7 +109,6 @@ div.result {
     border-radius: 20px;
 }
 div.result1 {
-    
     padding-bottom: 8%;
     background-color: #d4e3de;
     border-radius: 20px;
