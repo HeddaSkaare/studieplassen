@@ -1,13 +1,13 @@
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/filterSite.css";
 import NavBar from "./navBar";
 
-
 export default function FilterSite() {
     const [stoy, setStoy] = useState(3);
     const [checkStoy, setCheckStoy] = useState(false);
+    const [storrelse, setStorrelse] = useState(50);
+    const [checkStorrelse, setCheckStorrelse] = useState(false);
     const [vurdering, setVurdering] = useState(3);
     const [checkVurdering, setCheckVurdering] = useState(false);
     const [nerhet, setNerhet] = useState(3);
@@ -17,8 +17,9 @@ export default function FilterSite() {
     const [pois, setPois] = useState([]);
     const [brukerPosisjon, setBrukerPosisjon] = useState([]);
     const [bestPlaces, setBestPlaces] = useState([]);
+    const [korttilgang, setKorttilgang] = useState(false);
     const [hasFetchedLoc, setHasFetchedLoc] = useState(false);
-    let  places = [];
+    let places = [];
     useEffect(() => {
         if (!hasFetchedData) {
             fetch("/api")
@@ -30,13 +31,13 @@ export default function FilterSite() {
         }
     }, [hasFetchedData]);
     useEffect(() => {
-        if(!hasFetchedLoc){
-        navigator.geolocation.getCurrentPosition((position) => {
-            setBrukerPosisjon(position.coords);
-            setHasFetchedLoc(true)
-        });}
-    },[hasFetchedLoc]);
-    console.log(brukerPosisjon)
+        if (!hasFetchedLoc) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                setBrukerPosisjon(position.coords);
+                setHasFetchedLoc(true);
+            });
+        }
+    }, [hasFetchedLoc]);
 
     const poisW = pois.filter(
         (element) => element[6] != undefined || element[6] != null
@@ -69,6 +70,19 @@ export default function FilterSite() {
     function onChangeCheckedNerhet() {
         setCheckNerhet(!checkNerhet);
     }
+
+    function onChangeKorttilgang() {
+        setKorttilgang(!korttilgang);
+    }
+
+    function onChangeStorrelse(event) {
+        setStorrelse(event.target.value);
+    }
+
+    function onChangeCheckedStorrelse() {
+        setCheckStorrelse(!checkStorrelse);
+    }
+
     function calculateDistance(lat1, lon1, lat2, lon2) {
         const R = 6371;
         const dLat = deg2Rad(lat2 - lat1);
@@ -87,11 +101,17 @@ export default function FilterSite() {
         return deg * (Math.PI / 180);
     }
 
-    function YagerIntersection(){
-        let liste_med_plasser = poisW;
+    function YagerIntersection() {
+        let liste_med_plasser = [];
+        if (korttilgang) {
+            liste_med_plasser = pois.filter((element) => element[8] == true);
+        } else {
+            liste_med_plasser = pois.filter((element) => element[8] == false);
+        }
         const valgtVurdering = vurdering;
         const valgtStoy = stoy;
         const valgtAvstand = nerhet * 1000;
+        const valgtStorrelse = storrelse;
         const vekt = 10;
         let bestePlasser = [];
         for (let i = 0; i < liste_med_plasser.length; i++) {
@@ -111,11 +131,15 @@ export default function FilterSite() {
             if (c < 0) {
                 c = 0;
             }
+            const d = 1 - Math.abs(plass[9] - valgtStorrelse) / 100;
             const snitt =
                 1 -
                 Math.min(
                     1,
-                    ((1 - a) ** vekt + (1 - b) ** vekt + (1 - c) ** vekt) **
+                    ((1 - a) ** vekt +
+                        (1 - b) ** vekt +
+                        (1 - c) ** vekt +
+                        (1 - d) ** vekt) **
                         (1 / vekt)
                 );
             const point = { id: plass[0], snitt: snitt, avstand: avstand };
@@ -133,15 +157,20 @@ export default function FilterSite() {
         }
         places = bestePlasser;
         setBestPlaces(bestePlasser);
-        console.log(bestePlasser);
-        console.log(places);
     }
 
     function middleNumber() {
-        let liste_med_plasser = pois;
+        let liste_med_plasser = [];
+        if (korttilgang) {
+            liste_med_plasser = pois.filter((element) => element[8] == true);
+        } else {
+            liste_med_plasser = pois.filter((element) => element[8] == false);
+        }
+        console.log(liste_med_plasser);
         let vektStoy = checkStoy ? 5 : 1;
         let vektVurdering = checkVurdering ? 5 : 1;
         let vektAvstand = checkNerhet ? 5 : 1;
+        let vektStorrelse = checkStorrelse ? 5 : 1;
         const sumVekter = vektStoy + vektVurdering + vektAvstand;
         vektStoy /= sumVekter;
         vektVurdering /= sumVekter;
@@ -164,7 +193,12 @@ export default function FilterSite() {
             if (c > 1) {
                 c = 0;
             }
-            const snitt = vektVurdering * a + vektStoy * b + vektAvstand * c;
+            const d = 1 - Math.abs(plass[9] - storrelse) / 1000;
+            const snitt =
+                vektVurdering * a +
+                vektStoy * b +
+                vektAvstand * c +
+                vektStorrelse * d;
             const point = { id: plass[0], snitt: snitt, avstand: avstand };
             if (bestePlasser.length < 5 || bestePlasser[4].snitt < snitt) {
                 if (bestePlasser.length < 5) {
@@ -180,16 +214,14 @@ export default function FilterSite() {
         }
         places = bestePlasser;
         setBestPlaces(bestePlasser);
-        console.log(bestePlasser);
     }
 
     function handleSubmit() {
-        if (checkNerhet || checkStoy || checkVurdering) {
+        if (checkNerhet || checkStoy || checkVurdering || checkStorrelse) {
             middleNumber();
         } else {
             YagerIntersection();
         }
-        console.log(places)
         navigate("/result", { state: { places } });
     }
     return (
@@ -301,6 +333,45 @@ export default function FilterSite() {
                             />{" "}
                             5
                         </div>
+                    </div>
+                </div>
+                <div id="element">
+                    <div class="headerWeights">
+                        <div>
+                            <h2>Korttilgang?</h2>
+                        </div>
+                        <div>
+                            <input
+                                type="checkbox"
+                                name="check"
+                                onChange={onChangeKorttilgang}
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div id="element">
+                    <div class="headerWeights">
+                        <div>
+                            <h2>Antall plasser</h2>
+                        </div>
+                        <div id="weight">
+                            <input
+                                type="checkbox"
+                                name="check"
+                                onChange={onChangeCheckedStorrelse}
+                            ></input>
+                            Viktig?
+                        </div>
+                        <br />
+                        <input
+                            type="range"
+                            step={10}
+                            min={10}
+                            max={100}
+                            value={storrelse}
+                            onChange={onChangeStorrelse}
+                        />
+                        <p>Rundt {storrelse} plasser</p>
                     </div>
                 </div>
                 <div id="element">

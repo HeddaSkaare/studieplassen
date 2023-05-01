@@ -1,23 +1,19 @@
+import { makeVar, useReactiveVar } from "@apollo/client";
 import "leaflet/dist/leaflet.css";
-import vurderinger from "../data/vurdering.json"
-import points from "../data/pointInfo.json";
-import NavBar from "./navBar";
-import MapResult from "./mapResult";
-import React, {useRef,useState,useEffect} from 'react';
-import L from 'leaflet';
-import { makeVar,useReactiveVar } from "@apollo/client";
-import { clickedPoint } from "./markersResult";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import MapResult from "./mapResult";
+import { clickedPoint } from "./markersResult";
+import NavBar from "./navBar";
 
 export let clicked = makeVar("");
-function Results(){
-
+function Results() {
     const [hasFetchedData, setHasFetchedData] = useState(false);
     const [pois, setPois] = useState([]);
     const location = useLocation();
     const { places } = location.state;
     useEffect(() => {
-        console.log("places",places);
+        console.log("places", places);
     }, [places]);
 
     useEffect(() => {
@@ -31,9 +27,11 @@ function Results(){
         }
     }, [hasFetchedData]);
     let clicked2 = useReactiveVar(clickedPoint);
-   
-    const res1 = pois.filter((element) => places.find(obj => obj.id === element[0]));
-    console.log("filter",res1)
+
+    const res1 = pois.filter((element) =>
+        places.find((obj) => obj.id === element[0])
+    );
+    console.log("filter", res1);
     // vurderinger.data.forEach((e)=>{
     //     console.log()
     //     const poID = e.poiId;
@@ -42,7 +40,7 @@ function Results(){
     //     var kort = undefined
     //     points.points.forEach((poi)=>{
     //         if(poi.poiId===poID)
-    //         {navn = poi.mapText 
+    //         {navn = poi.mapText
     //         bygningnavn = poi.buildingName}})
 
     //     const vur = e.Vurdering;
@@ -56,68 +54,78 @@ function Results(){
     //     const avst= e.Avstand;
     //     pois.push({poID,navn,bygningnavn,vur,stoy,kort,cap,avst})})
 
-    function handleClick(poi){
+    function handleClick(poi) {
         clicked(poi);
     }
     //console.log(pois)
     //punktId = point[i][0], cordinater = [point[i][2],point[i][1]], floor = point[i][3], building = point[i][4], name = point[i][5]
     //stoyNivaa = point[i][6], Vurdering= point[i][7], Korttilgang = point[i][8], kapasitet =point[i][9]
-    return(
-    <div>
-        <NavBar></NavBar>
-        <div className="container">
-            <div className='sideBar'>
-                <h3>
-                    Dine beste studieplasser
-                </h3>          
-                <div className='sideBar2'>
-                    
-                    {res1.map((item)=>{
-                        if(clicked2 == item[0]){
-                            return(
-                                <div className='result1' onClick={() => handleClick(item[0])} >
-                           
-                                    <p id='first'>{item[5]}</p>
-                                    <p id='second'>{item[4]}</p>
-                                    <div className= "boxContainer"> 
+    return (
+        <div>
+            <NavBar></NavBar>
+            <div className="container">
+                <div className="sideBar">
+                    <h3>Dine beste studieplasser</h3>
+                    <div className="sideBar2">
+                        {res1.map((item) => {
+                            if (clicked2 == item[0]) {
+                                return (
+                                    <div
+                                        className="result1"
+                                        onClick={() => handleClick(item[0])}
+                                    >
+                                        <p id="first">{item[5]}</p>
+                                        <p id="second">{item[4]}</p>
+                                        <div className="boxContainer">
+                                            <div id="left">
+                                                <p> Vurdering: {item[7]}</p>
+                                                <p> Kapasitet: {item[9]}</p>
+                                            </div>
+                                            <div id="right">
+                                                <p> Støynivå: {item[6]}</p>
+                                            </div>
+                                        </div>
+                                        <p id="five">
+                                            {" "}
+                                            {item[8]
+                                                ? "Må ha korttilgang"
+                                                : "Trenger ikke korttilgang"}
+                                        </p>
+                                    </div>
+                                );
+                            }
+                            return (
+                                <div
+                                    className="result1"
+                                    onClick={() => handleClick(item[0])}
+                                >
+                                    <p id="first">{item[5]}</p>
+                                    <p id="second">{item[4]}</p>
+                                    <div className="boxContainer">
                                         <div id="left">
                                             <p> Vurdering: {item[7]}</p>
                                             <p> Kapasitet: {item[9]}</p>
                                         </div>
                                         <div id="right">
-                                        <p> Støynivå: {item[6]}</p>
+                                            <p> Støynivå: {item[6]}</p>
+                                        </div>
                                     </div>
+                                    <p id="five">
+                                        {" "}
+                                        {item[8]
+                                            ? "Trenger ikke korttilgang"
+                                            : "Må ha korttilgang"}
+                                    </p>
                                 </div>
-                                <p id='five'> {item[8] ? "Trenger ikke korttilgang":"Må ha korttilgang"}</p>
-                                </div>      
-                            )
-                        }
-                        return(
-                            <div className='result1' onClick={() => handleClick(item[0])} >
-                       
-                                <p id='first'>{item[5]}</p>
-                                <p id='second'>{item[4]}</p>
-                                <div className= "boxContainer"> 
-                                    <div id="left">
-                                        <p> Vurdering: {item[7]}</p>
-                                        <p> Kapasitet: {item[9]}</p>
-                                    </div>
-                                    <div id="right">
-                                    <p> Støynivå: {item[6]}</p>
-                                </div>
-                            </div>
-                            <p id='five'> {item[8] ? "Trenger ikke korttilgang":"Må ha korttilgang"}</p>
-                            </div>      
-                        )
-                    })
-                    }
-                </div> 
-            </div>  
-            <div>
-                <MapResult></MapResult>
-            </div> 
+                            );
+                        })}
+                    </div>
+                </div>
+                <div>
+                    <MapResult></MapResult>
+                </div>
+            </div>
         </div>
-    </div>
-    )
-};
-export default Results; 
+    );
+}
+export default Results;
