@@ -1,11 +1,11 @@
 
 #filterBox{
-    background-color: rgb(231, 250, 231);
-  width: 40%;
-  border-radius: 30px;
-  padding: 50px;
-  margin: auto;
-  box-shadow: 2px 3px 4px 5px rgba(0, 0, 0, 0.4);
+background-color: #e8f1ee;
+width: 40%;
+border-radius: 30px;
+padding: 50px;
+margin: auto;
+box-shadow: 2px 3px 4px 5px rgba(0, 0, 0, 0.4);
 }
 .header{
     text-align: center;
