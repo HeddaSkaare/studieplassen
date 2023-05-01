@@ -69,17 +69,11 @@ div.result {
 #right {
     justify-self: start;
 }
-.tooltip{
+.my-tooltip{
     font-family: 'Futura';
-    padding: 2px;
+    padding: 1px;
     border: #000fb4;
-    color: black;
+    color: rgb(0, 0, 0);
     border-radius: 4px;
-}
-.marker-tooltip {
-    font-family: 'Futura';
-    padding: 8px;
-    border: #7bf517;
-    color: rgb(152, 0, 0);
-    border-radius: 4px;
+    font-size: medium;
 }

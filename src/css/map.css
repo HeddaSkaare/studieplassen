@@ -1,8 +1,26 @@
  #map{
+    height: 100vh;
+    width: 700vw;
+    margin-right: 0;
+      
+}  
+#mapR {
     position: relative;
     float: right;
     align-items: right;
-}   
+    height: 100vh;
+    width: 70vw;
+    margin-right: 0;
+}
+
+.leaflet-container {
+    position: relative;
+    float: right;
+    align-items: right;
+    height: 100vh;
+    width: 70vw;
+    margin-right: 0;
+}
 /* #sideBar{
     grid-column-start: 1;
     grid-column-end: 3;

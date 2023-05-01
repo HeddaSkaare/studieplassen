@@ -17,7 +17,7 @@ const iconB = L.icon({
   iconSize: 70
 })
 
-function MarkersResult({bgColor}) {
+function MarkersResult() {
  
   let clicked2 = useReactiveVar(clicked);
   const resultPID= []
@@ -42,14 +42,12 @@ function MarkersResult({bgColor}) {
           const name = info[point].maptext
           if(clicked2 == point){
             return (<Marker position={coord} icon={iconB}  onClick={()=> setReload(true)}>
-            {/* <Tooltip className={style} direction="top" offset={[0, -15]} opacity={0.9} permanent>{name}</Tooltip> */}
-             <Tooltip className="my-tooltip" direction="top" style={{ backgroundColor: bgColor }}
+             <Tooltip className="my-tooltip" direction="top" 
              offset={[0, -15]} opacity={0.9} permanent>{name}</Tooltip>
             </Marker>)
           }
           return ( 
             <Marker position={coord} icon={iconP}  onClick={()=> setReload(true)}>
-            {/* <Tooltip className={style} direction="top" offset={[0, -15]} opacity={0.9} permanent>{name}</Tooltip> */}
             </Marker>)
         })
       }
