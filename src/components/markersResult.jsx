@@ -13,7 +13,7 @@ const iconP = L.icon({
 })
 
 const iconB = L.icon({
-  iconUrl: require('../static/icons/Point2.png'),
+  iconUrl: require('../static/icons/Point3.png'),
   iconSize: 70
 })
 
