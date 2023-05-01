@@ -1,6 +1,9 @@
  #map{
+    position: relative;
+    float: right;
+    align-items: right;
     height: 100vh;
-    width: 700vw;
+    width: 100vw;
     margin-right: 0;
       
 }  

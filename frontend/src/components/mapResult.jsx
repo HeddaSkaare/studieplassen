@@ -46,7 +46,6 @@ function LocationMarker() {
 
 function Map(){
     const animateRef = useRef(false)
-    const [classname, setClassname] = useState('tooltip');
     return(
     <MapContainer id = 'map' center={[63.416877, 10.405647]} zoom={14} scrollWheelZoom={true}>
         <TileLayer
