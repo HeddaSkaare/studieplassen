@@ -45,6 +45,14 @@ div.result {
     border-radius: 20px;
     margin-bottom: 30px;
 }
+div.result1 {
+    padding: 4%;
+    padding-bottom: 8%;
+    background-color: #d4e3de;
+    border-radius: 20px;
+    margin-bottom: 30px;
+}
+
 
 #first {
     font-weight: 700;

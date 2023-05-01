@@ -26,24 +26,7 @@ function SetViewOnClick({ animateRef }) {
   
     return null
 }
-function LocationMarker() {
-    const [position, setPosition] = useState(null)
-    const map = useMapEvents({
-      click() {
-        map.locate()
-      },
-      locationfound(e) {
-        setPosition(e.latlng)
-        map.flyTo(e.latlng, map.getZoom())
-      },
-    })
-  
-    return position === null ? null : (
-      <Marker id='you_marker' icon={iconYou} position={position}  >
-        <Popup>You are here</Popup>
-      </Marker>
-    )
-}
+
 
 function MapResult(){
 
@@ -56,7 +39,6 @@ function MapResult(){
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <MarkersResult></MarkersResult>
-        <LocationMarker></LocationMarker>
         <SetViewOnClick animateRef={animateRef} />
     </MapContainer>
     )
