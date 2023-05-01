@@ -66,20 +66,20 @@ def addplace():
     conn=get_connection()              
     with closing(conn.cursor()) as cur:
         query_sql = """
-            SELECT * FROM "Vurdering" WHERE "poiId" = %s
+            SELECT * FROM "Info" WHERE "PunktID" = %s
             """
         cur.execute(query_sql, (poiId,))
         existing_record = cur.fetchone()
         if existing_record: 
             query_sql = """
-                UPDATE "Vurdering"
-                SET "StoyNiva" = %s, "Vurdering" = %s, "Korttilgang" = %s, "kapasitet" = %s
-                WHERE "poiId" = %s
+                UPDATE "Info"
+                SET "StoyNiva" = %s, "Vurdering" = %s, "Korttilgang" = %s, "Storrelse"= %s
+                WHERE "PunktID" = %s
             """
             cur.execute(query_sql, (StoyNiva, Vurdering, Korttilgang, kapasitet, poiId))
         else:   
             query_sql = """
-                    insert into "Vurdering"("poiId","StoyNiva","Vurdering","Korttilgang",kapasitet)
+                    insert into "Info"("PunktID", "StoyNiva", "Vurdering", "Korttilgang", "Storrelse")
                     values (%s, %s, %s, %s, %s)
                     """  
             cur.execute(query_sql, (poiId, StoyNiva,Vurdering,Korttilgang,kapasitet))        
