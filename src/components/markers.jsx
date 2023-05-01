@@ -6,6 +6,7 @@ import { Marker, Popup } from "react-leaflet";
 import { useNavigate } from 'react-router-dom';
 import points from '../data/pointIds.json';
 import info from '../data/infos.json';
+import result from '../components/results.jsx'
 
 
 const iconP = L.icon({
@@ -30,6 +31,9 @@ function Markers() {
       setReload(false);
     }
   }, [reload]);
+
+
+
 
   return (
     <div>
