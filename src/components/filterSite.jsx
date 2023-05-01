@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/filterSite.css";
 import data from "../data/vurdering.json";
 import NavBar from "./navBar";
 
 export default function FilterSite() {
+
     const [stoy, setStoy] = useState(3);
     const [checkStoy, setCheckStoy] = useState(false);
     const [vurdering, setVurdering] = useState(3);
@@ -12,7 +13,22 @@ export default function FilterSite() {
     const [nerhet, setNerhet] = useState(3);
     const [checkNerhet, setCheckNerhet] = useState(false);
     const navigate = useNavigate();
+    const [hasFetchedData, setHasFetchedData] = useState(false);
+    const [pois,setPois] = useState([]);
+    useEffect(()=>{
+      if (!hasFetchedData) {
+      fetch('/api')
+        .then(response => response.json())
+        .then(data => {
+          setPois(data);
+          console.log(data);
+          setHasFetchedData(true);
+        })
+      }
+    }, [hasFetchedData]);
 
+    const poisW = pois.filter((element) => (element[6] != undefined || element[6] != null));//punkter med vurdering
+    const poisU = pois.filter((element) => (element[6] == undefined || element[6] == null));//punkter uten vurdering
     function onChangeStoy(event) {
         setStoy(event.target.value);
     }
