@@ -6,7 +6,7 @@ function NavBar(){
     return(
         <div className ="navBar">
             <a id="filterSite" href="filterSite">Finn studieplass</a>
-             <div class="topnav-centered">
+             <div className="topnav-centered">
                  <a id="home" href="/">Studieplassen</a>
             </div>
             <a id="logIn"href="logIn">Logg inn</a>

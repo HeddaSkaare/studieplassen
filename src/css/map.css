@@ -8,33 +8,6 @@
     grid-column-end: 3;
     margin-left: 0;
 } */
-.navBar {
-    grid-column: 1 / span 3;
-    background-color: #383838;
-    overflow: hidden;
-    padding: 10px;
-    position: relative;
-}
-
-.navBar a {
-    float: left;
-    padding: 12px;
-    color: #f2f2f2;
-    font-size: 20px;
-    text-decoration: none;
-    font-family: Helvetica;
-}
-.navBar a:hover {
-    background-color: #ddd;
-    color: black;
-}
-.topnav-centered a {
-    float: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
 
 
 #logIn{
@@ -42,6 +15,3 @@ float: right;
 margin-right: 5%;
 }
 
-#sideBar {
-    margin-left: 15px;
-}

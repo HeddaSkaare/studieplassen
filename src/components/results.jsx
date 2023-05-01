@@ -1,47 +1,81 @@
 import "leaflet/dist/leaflet.css";
-import data from "../data/vurdering.json";
+import vurderinger from "../data/vurdering.json"
 import points from "../data/pointInfo.json";
-import {
-  MapContainer,
-  TileLayer,
-  Popup,
-  Marker,
-  useMapEvent,
-  useMapEvents,
-} from 'react-leaflet';
+import NavBar from "./navBar";
+import MapResult from "./mapResult";
 import React, {useRef,useState} from 'react';
-import Markers from './markers'
-import L from 'leaflet'
-import StudyCard from "./studyCard";
-import { json } from "react-router-dom";
+import L from 'leaflet';
+import { makeVar } from "@apollo/client";
 
-function loadResults(event) {
-      event.preventDefault();
-    }
-
+export let clicked = makeVar("")
 function Results(){
-    //console.log(data.vurderinger[0].kapasitet)
-    /* fetch("../data/vurdering.json")
-    .then((res)=>res.json())
-    .then((json)=>console.log(json)) */
 
+    const pois = [];
+    console.log("Okei")
+    vurderinger.data.forEach((e)=>{
+        console.log()
+        const poID = e.poiId;
+        var navn = undefined
+        var bygningnavn = undefined
+        var kort = undefined
+        points.points.forEach((poi)=>{
+            if(poi.poiId===poID)
+            {navn = poi.mapText 
+            bygningnavn = poi.buildingName}})
 
+        const vur = e.Vurdering;
+        const stoy = e.StoyNiva;
+        if(e.Korttilgan){
+            kort="Må ha korttilgang"
+        } else{
+            kort="Trenger ikke korttilgang"
+        }
+        const cap = e.kapasitet;
+        const avst= e.Avstand;
+        pois.push({poID,navn,bygningnavn,vur,stoy,kort,cap,avst})})
+
+    function handleClick(poi){
+        clicked(poi);
+    }
+    //console.log(pois)
     return(
-        <div id='sideBar'>
-            <h2 className='Title'>
-                Dine beste studieplasser
-            </h2>
-
-           
-            {data.data.map((item)=>(
-            <div className='results'>
-                <p>{item.Korttilgang}</p>
-                <p>{item.Vurdering}</p>
-                <p>{item.kapasitet}</p>
-                <p>{item.poiId}</p>
-            </div>      
-            ))}
-        </div>  
+    <div>
+        <NavBar></NavBar>
+        <div className="container">
+            <div className='sideBar'>
+                <h3>
+                    Dine beste studieplasser
+                </h3>          
+                <div className='sideBar2'>
+                    
+                    {pois.map((item)=>{
+                        console.log(item.poID)
+                        return(
+                            <div className='result'onClick={() => handleClick(item.poID)} >
+                       
+                                <p id='first'>{item.navn}</p>
+                                <p id='second'>{item.bygningnavn}</p>
+                                <div className= "boxContainer"> 
+                                    <div id="left">
+                                        <p> Vurdering: {item.vur}</p>
+                                        <p> Kapasitet: {item.cap}</p>
+                                    </div>
+                                    <div id="right">
+                                    <p> Støynivå: {item.stoy}</p>
+                                    <p> Avstand: {item.avst} m</p>
+                                </div>
+                            </div>
+                            <p id='five'> {item.kort}</p>
+                            </div>      
+                        )})
+                    }
+                </div> 
+            </div>  
+            <div>
+                <MapResult></MapResult>
+            </div> 
+        </div>
+    </div>
     )
 };
-export default Results;
+export default Results; 
