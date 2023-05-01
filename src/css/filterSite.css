@@ -6,22 +6,41 @@ border-radius: 30px;
 padding: 50px;
 margin: auto;
 box-shadow: 2px 3px 4px 5px rgba(0, 0, 0, 0.4);
+
 }
-.header {
+header {
+    text-align: center;
+    font-family: 'Futura';
+    color: #3e4543;
+}
+
+.filterBox {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #e8f1ee;
+    width: 40%;
+    border-radius: 30px;
+    border-width: 2px;
+    border-color: #446662;
+    padding: 20px;
+    margin: auto;
     text-align: center;
 }
 
-p {
-    text-align: center;
+.filterBox h2 {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
-#element {
-    text-align: center;
+
+#weight{
+   
 }
 #button {
     margin: 8px;
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.4);
     border: none;
 }
+
 input[type="radio"] {
     height: 1.2rem;
     width: 1.2rem;
@@ -31,43 +50,9 @@ input,
 label {
     cursor: pointer;
 }
-.custom-radio {
-    /* hiding browser el */
-    appearance: none;
-    /* Safari support */
-    -webkit-appearance: none;
-    border: 0.2rem solid #fff;
-    background-color: var(--bg-color);
-    border-radius: 50%;
-}
 
-/* keyboard navigation focus appearance */
-.custom-radio:focus-visible {
-    outline-offset: 0;
-}
-#box-shadow {
-    box-shadow: 0 0 0 1px #999;
-    /* hiding browser el */
-    appearance: none;
-    /* Safari support */
-    -webkit-appearance: none;
-    border: 0.2rem solid #fff;
-    background-color: var(--bg-color);
-    border-radius: 50%;
-}
-
-#box-shadow:hover {
-    border-width: 5px;
-}
-
-#box-shadow:checked {
-    box-shadow: 0 0 0 1px #159ad8;
-    background-color: #159ad8;
-    border-width: 0.2rem;
-}
 #sok {
-    background-color: #4caf50; /* Green */
-    border: none;
+    background-color: #a9c9c6; 
     border-radius: 10px;
     color: white;
     padding: 15px 32px;
@@ -76,18 +61,11 @@ label {
     display: inline-block;
     font-size: 16px;
     margin-top: 50px;
-    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.4);
 }
 #sok:active {
-    background-color: rgb(5, 90, 12); /* Green */
+    background-color: rgb(5, 90, 12);
 }
 
-.headerWeights div {
-    display: inline-block;
-    flex-direction: row;
-    text-align: center;
-    margin-inline-end: 12px;
-}
 
 .slidecontainer {
     width: 100%;

@@ -229,22 +229,19 @@ export default function FilterSite() {
             <header class="header">
                 <h1>Finn studieplass</h1>
             </header>
-            <p>Her kan du legge inn dine ønsker for studieplassen</p>
-            <div id="filterBox">
-                <div id="element">
-                    <div class="headerWeights">
-                        <div>
+            <div className="filterBox">
+                <div id="stoy">
+                    <div class="headerWeights">          
                             <h2>Støy</h2>
-                        </div>
-                        <div id="weight">
+                        <span id="weight">
                             <input
                                 type="checkbox"
                                 name="check"
                                 onChange={onChangeCheckedStoy}
                             ></input>
                             Viktig?
-                        </div>
-                        <br />
+                        </span>
+              
                         <div onChange={onChangeStoy}>
                             <input type="radio" id="1" value="1" name="stoy" />{" "}
                             1
@@ -279,7 +276,7 @@ export default function FilterSite() {
                         </div>
                     </div>
                 </div>
-                <div id="element">
+                <div id="vurdering">
                     <div class="headerWeights">
                         <div>
                             <h2>Vurdering</h2>
@@ -332,7 +329,7 @@ export default function FilterSite() {
                         </div>
                     </div>
                 </div>
-                <div id="element">
+                <div id="korttilgang">
                     <div class="headerWeights">
                         <div>
                             <h2>Korttilgang?</h2>
@@ -346,7 +343,7 @@ export default function FilterSite() {
                         </div>
                     </div>
                 </div>
-                <div id="element">
+                <div id="Kapasitet">
                     <div class="headerWeights">
                         <div>
                             <h2>Antall plasser</h2>
@@ -371,7 +368,7 @@ export default function FilterSite() {
                         <p>Rundt {storrelse} plasser</p>
                     </div>
                 </div>
-                <div id="element">
+                <div id="avstand">
                     <div class="headerWeights">
                         <div>
                             <h2>Avstand</h2>
@@ -397,48 +394,6 @@ export default function FilterSite() {
                         <p>km: {nerhet}</p>
                     </div>
                 </div>
-
-                {/*
-            <div id='element'>
-                <div class='headerWeights'>
-                    <div>
-                        <h2>Tilgjengelighet</h2>
-                    </div>
-                <div id= 'weight'>
-                    <input type="checkbox" name="check"></input>
-                    <label htmlFor="box-shadow"> Viktig? </label>
-                </div>
-
-                </div>
-
-                <div>
-                    <input type="radio" name="styles1" id="box-shadow" className="custom-radio" value={1}></input><label htmlFor="box-shadow">1</label>
-                    <input type="radio" name="styles1" id="box-shadow" className="custom-radio" value={2}></input><label htmlFor="box-shadow">2</label>
-                    <input type="radio" name="styles1" id="box-shadow" className="custom-radio" value={3}></input><label htmlFor="box-shadow">3</label>
-                    <input type="radio" name="styles1" id="box-shadow" className="custom-radio" value={4}></input><label htmlFor="box-shadow">4</label>
-                    <input type="radio" name="styles1" id="box-shadow" className="custom-radio" value={5}></input><label htmlFor="box-shadow">5</label>
-                </div>
-            </div>
-            <div id='element'>
-                <h2>Vurdering</h2>
-                <div>
-                    <input type="radio" name="styles2" id="box-shadow" className="custom-radio" value={1}></input><label htmlFor="box-shadow">1</label>
-                    <input type="radio" name="styles2" id="box-shadow" className="custom-radio" value={2}></input><label htmlFor="box-shadow">2</label>
-                    <input type="radio" name="styles2" id="box-shadow" className="custom-radio" value={3}></input><label htmlFor="box-shadow">3</label>
-                    <input type="radio" name="styles2" id="box-shadow" className="custom-radio" value={4}></input><label htmlFor="box-shadow">4</label>
-                    <input type="radio" name="styles2" id="box-shadow" className="custom-radio" value={5}></input><label htmlFor="box-shadow">5</label>
-                </div>
-            </div>
-            <div id='element'>
-                <h2>Nærhet</h2>
-                <div>
-                    <input type="radio" name="styles3" id="box-shadow" className="custom-radio" value={1}></input><label htmlFor="box-shadow">1</label>
-                    <input type="radio" name="styles3" id="box-shadow" className="custom-radio" value={2}></input><label htmlFor="box-shadow">2</label>
-                    <input type="radio" name="styles3" id="box-shadow" className="custom-radio" value={3}></input><label htmlFor="box-shadow">3</label>
-                    <input type="radio" name="styles3" id="box-shadow" className="custom-radio" value={4}></input><label htmlFor="box-shadow">4</label>
-                    <input type="radio" name="styles3" id="box-shadow" className="custom-radio" value={5}></input><label htmlFor="box-shadow">5</label>
-                </div>
-            </div> */}
                 <div id="element">
                     <button id="sok" onClick={handleSubmit}>
                         Finn leseplass
