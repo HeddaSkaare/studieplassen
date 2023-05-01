@@ -44,7 +44,7 @@ function LocationMarker() {
     )
 }
 
-function Map({setClassname}){
+function Map(){
     const animateRef = useRef(false)
     const [classname, setClassname] = useState('tooltip');
     return(
