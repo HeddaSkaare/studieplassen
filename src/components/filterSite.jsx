@@ -38,7 +38,15 @@ export default function FilterSite() {
     }
 
     function YagerIntersection() {
-        let liste_med_plasser = data.data;
+        let liste_med_plasser = [];
+        fetch("/api", {
+            method: "GET"
+        })
+            .then((response) => {
+                response.json();
+                console.log(response);
+            })
+            .then((data) => console.log(data));
         const valgtVurdering = vurdering;
         const valgtStoy = stoy;
         const valgtAvstand = nerhet;
@@ -72,10 +80,31 @@ export default function FilterSite() {
 
     function middleNumber() {
         let liste_med_plasser = data.data;
+        let vektStoy = checkStoy ? 5 : 1;
+        let vektVurdering = checkVurdering ? 5 : 1;
+        let vektAvstand = checkNerhet ? 5 : 1;
+        const sumVekter = vektStoy + vektVurdering + vektAvstand;
+        vektStoy /= sumVekter;
+        vektVurdering /= sumVekter;
+        vektAvstand /= sumVekter;
+        for (let i = 0; i < liste_med_plasser.length; i++) {
+            const plass = liste_med_plasser[i];
+            const avstand = 0; // Må bergene avstand her
+            const a = 1 - Math.abs(plass.Vurdering - vurdering) / 5;
+            const b = 1 - Math.abs(plass.StoyNiva - stoy) / 5;
+            let c = avstand < nerhet ? 1 : Math.abs(avstand - nerhet) / 1000;
+            if (c > 1) {
+                c = 0;
+            }
+            const snitt = vektVurdering * a + vektStoy * b + vektAvstand * c;
+            console.log("Vurdering: ", a, "Støynivå: ", b, "Snittet: ", snitt);
+        }
     }
 
     function handleSubmit(event) {
-        if (!checkNerhet && !checkStoy && !checkVurdering) {
+        if (checkNerhet || checkStoy || checkVurdering) {
+            middleNumber();
+        } else {
             YagerIntersection();
         }
         // navigate("/");
