@@ -1,11 +1,9 @@
-import React, { useState,useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/filterSite.css";
-import data from "../data/vurdering.json";
 import NavBar from "./navBar";
 
 export default function FilterSite() {
-
     const [stoy, setStoy] = useState(3);
     const [checkStoy, setCheckStoy] = useState(false);
     const [vurdering, setVurdering] = useState(3);
@@ -14,21 +12,31 @@ export default function FilterSite() {
     const [checkNerhet, setCheckNerhet] = useState(false);
     const navigate = useNavigate();
     const [hasFetchedData, setHasFetchedData] = useState(false);
-    const [pois,setPois] = useState([]);
-    useEffect(()=>{
-      if (!hasFetchedData) {
-      fetch('/api')
-        .then(response => response.json())
-        .then(data => {
-          setPois(data);
-          console.log(data);
-          setHasFetchedData(true);
-        })
-      }
+    const [pois, setPois] = useState([]);
+    const [brukerPosisjon, setBrukerPosisjon] = useState([]);
+    const [bestPlaces, setBestPlaces] = useState([]);
+    useEffect(() => {
+        if (!hasFetchedData) {
+            fetch("/api")
+                .then((response) => response.json())
+                .then((data) => {
+                    setPois(data);
+                    setHasFetchedData(true);
+                });
+        }
     }, [hasFetchedData]);
+    useEffect(() => {
+        navigator.geolocation.getCurrentPosition((position) => {
+            setBrukerPosisjon(position.coords);
+        });
+    });
 
-    const poisW = pois.filter((element) => (element[6] != undefined || element[6] != null));//punkter med vurdering
-    const poisU = pois.filter((element) => (element[6] == undefined || element[6] == null));//punkter uten vurdering
+    const poisW = pois.filter(
+        (element) => element[6] != undefined || element[6] != null
+    ); //punkter med vurdering
+    const poisU = pois.filter(
+        (element) => element[6] == undefined || element[6] == null
+    ); //punkter uten vurdering
     //punktId = point[i][0], cordinater = [point[i][2],point[i][1]], floor = point[i][3], building = point[i][4], name = point[i][5]
     //stoyNivaa = point[i][6], Vurdering= point[i][7], Korttilgang = point[i][8], kapasitet =point[i][9]
     function onChangeStoy(event) {
@@ -54,30 +62,41 @@ export default function FilterSite() {
     function onChangeCheckedNerhet() {
         setCheckNerhet(!checkNerhet);
     }
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+        const R = 6371;
+        const dLat = deg2Rad(lat2 - lat1);
+        const dLon = deg2Rad(lon2 - lon1);
+        const a =
+            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(deg2Rad(lat1)) *
+                Math.cos(deg2Rad(lat2)) *
+                Math.sin(dLon / 2) *
+                Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        const d = R * c;
+        return d * 1000;
+    }
+    function deg2Rad(deg) {
+        return deg * (Math.PI / 180);
+    }
 
     function YagerIntersection() {
-        let liste_med_plasser = [];
-        fetch("/api", {
-            method: "GET"
-        })
-            .then((response) => {
-                response.json();
-                console.log(response);
-            })
-            .then((data) => console.log(data));
+        let liste_med_plasser = pois;
         const valgtVurdering = vurdering;
         const valgtStoy = stoy;
-        const valgtAvstand = nerhet;
+        const valgtAvstand = nerhet * 1000;
         const vekt = 10;
-        let brukerPosisjon = 0;
-        navigator.geolocation.getCurrentPosition((position) => {
-            brukerPosisjon = position.coords;
-        });
+        let bestePlasser = [];
         for (let i = 0; i < liste_med_plasser.length; i++) {
             const plass = liste_med_plasser[i];
-            const avstand = 0; // Må bergene avstand her
-            const a = 1 - Math.abs(plass.Vurdering - valgtVurdering) / 5;
-            const b = 1 - Math.abs(plass.StoyNiva - valgtStoy) / 5;
+            const avstand = calculateDistance(
+                brukerPosisjon.latitude,
+                brukerPosisjon.longitude,
+                plass[2],
+                plass[1]
+            );
+            const a = 1 - Math.abs(plass[7] - valgtVurdering) / 5;
+            const b = 1 - Math.abs(plass[6] - valgtStoy) / 5;
             let c =
                 avstand < valgtAvstand
                     ? 1
@@ -92,12 +111,25 @@ export default function FilterSite() {
                     ((1 - a) ** vekt + (1 - b) ** vekt + (1 - c) ** vekt) **
                         (1 / vekt)
                 );
-            console.log("Vurdering: ", a, "Støynivå: ", b, "Snittet: ", snitt);
+            const point = { id: plass[0], snitt: snitt };
+            if (bestePlasser.length < 5 || bestePlasser[4].snitt < snitt) {
+                if (bestePlasser.length < 5) {
+                    bestePlasser.push(point);
+                } else {
+                    bestePlasser.pop();
+                    bestePlasser.push(point);
+                }
+            }
+            bestePlasser.sort(function (a, b) {
+                return b.snitt - a.snitt;
+            });
         }
+        setBestPlaces(bestePlasser);
+        console.log(bestPlaces);
     }
 
     function middleNumber() {
-        let liste_med_plasser = data.data;
+        let liste_med_plasser = pois;
         let vektStoy = checkStoy ? 5 : 1;
         let vektVurdering = checkVurdering ? 5 : 1;
         let vektAvstand = checkNerhet ? 5 : 1;
@@ -105,18 +137,40 @@ export default function FilterSite() {
         vektStoy /= sumVekter;
         vektVurdering /= sumVekter;
         vektAvstand /= sumVekter;
+        let bestePlasser = [];
         for (let i = 0; i < liste_med_plasser.length; i++) {
             const plass = liste_med_plasser[i];
-            const avstand = 0; // Må bergene avstand her
-            const a = 1 - Math.abs(plass.Vurdering - vurdering) / 5;
-            const b = 1 - Math.abs(plass.StoyNiva - stoy) / 5;
-            let c = avstand < nerhet ? 1 : Math.abs(avstand - nerhet) / 1000;
+            const avstand = calculateDistance(
+                brukerPosisjon.latitude,
+                brukerPosisjon.longitude,
+                plass[2],
+                plass[1]
+            );
+            const a = 1 - Math.abs(plass[7] - vurdering) / 5;
+            const b = 1 - Math.abs(plass[6] - stoy) / 5;
+            let c =
+                avstand < nerhet * 1000
+                    ? 1
+                    : Math.abs(avstand - nerhet * 1000) / 1000;
             if (c > 1) {
                 c = 0;
             }
             const snitt = vektVurdering * a + vektStoy * b + vektAvstand * c;
-            console.log("Vurdering: ", a, "Støynivå: ", b, "Snittet: ", snitt);
+            const point = { id: plass[0], snitt: snitt };
+            if (bestePlasser.length < 5 || bestePlasser[4].snitt < snitt) {
+                if (bestePlasser.length < 5) {
+                    bestePlasser.push(point);
+                } else {
+                    bestePlasser.pop();
+                    bestePlasser.push(point);
+                }
+            }
+            bestePlasser.sort(function (a, b) {
+                return b.snitt - a.snitt;
+            });
         }
+        setBestPlaces(bestePlasser);
+        console.log(bestPlaces);
     }
 
     function handleSubmit(event) {
