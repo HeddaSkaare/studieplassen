@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client';
-import L, { tooltip } from 'leaflet';
+import L from 'leaflet';
 import "leaflet/dist/leaflet.css";
 import React, { useEffect, useState } from 'react';
 import { Marker,Tooltip, Popup } from "react-leaflet";
@@ -45,7 +45,8 @@ function MarkersResult() {
           const coord = [info[point].coordinates[1], info[point].coordinates[0]]
           const name = info[point].maptext
           if(clicked2 == point){
-            return (<Marker position={coord} icon={iconB}  onClick={() => handleClick(point)}>
+            return (
+            <Marker position={coord} icon={iconB}  onClick={() => handleClick(point)}>
              <Tooltip className="my-tooltip" direction="top" 
              offset={[0, -15]} opacity={0.9} permanent>{name}</Tooltip>
             </Marker>)

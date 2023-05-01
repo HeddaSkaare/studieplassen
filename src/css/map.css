@@ -2,10 +2,13 @@
     position: relative;
     float: right;
     align-items: right;
-    height: 100vh;
+    height: 105vh;
     width: 100vw;
-    margin-right: 0;      
+    margin-right: 0;    
+    z-index: 0;  
 }  
+
+
 #mapR {
     position: relative;
     float: right;

@@ -6,10 +6,13 @@ import {
   Marker,
   useMapEvent,
   useMapEvents,
+  Tooltip
 } from 'react-leaflet';
 import React, {useRef,useState} from 'react';
 import Markers from './markers'
 import L from 'leaflet'
+
+
 
 const iconYou = L.icon({
     iconUrl: require('../static/icons/Pointer.png'),
@@ -38,8 +41,9 @@ function LocationMarker() {
     })
   
     return position === null ? null : (
-      <Marker id='you_marker' icon={iconYou} position={position}>
-        <Popup>You are here</Popup>
+      <Marker id='you_marker'>
+          <Tooltip  direction="top" 
+             offset={[0, -15]}  icon={iconYou} position={position} opacity={0.9} permanent>{"Du er her"}</Tooltip>
       </Marker>
     )
 }
@@ -47,6 +51,7 @@ function LocationMarker() {
 function Map(){
     const animateRef = useRef(false)
     return(
+      
     <MapContainer id = 'map' center={[63.416877, 10.405647]} zoom={14} scrollWheelZoom={true}>
         <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
