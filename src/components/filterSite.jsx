@@ -1,7 +1,9 @@
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/filterSite.css";
 import NavBar from "./navBar";
+
 
 export default function FilterSite() {
     const [stoy, setStoy] = useState(3);
@@ -15,6 +17,8 @@ export default function FilterSite() {
     const [pois, setPois] = useState([]);
     const [brukerPosisjon, setBrukerPosisjon] = useState([]);
     const [bestPlaces, setBestPlaces] = useState([]);
+    const [hasFetchedLoc, setHasFetchedLoc] = useState(false);
+    let  places = [];
     useEffect(() => {
         if (!hasFetchedData) {
             fetch("/api")
@@ -26,10 +30,13 @@ export default function FilterSite() {
         }
     }, [hasFetchedData]);
     useEffect(() => {
+        if(!hasFetchedLoc){
         navigator.geolocation.getCurrentPosition((position) => {
             setBrukerPosisjon(position.coords);
-        });
-    });
+            setHasFetchedLoc(true)
+        });}
+    },[hasFetchedLoc]);
+    console.log(brukerPosisjon)
 
     const poisW = pois.filter(
         (element) => element[6] != undefined || element[6] != null
@@ -80,8 +87,8 @@ export default function FilterSite() {
         return deg * (Math.PI / 180);
     }
 
-    function YagerIntersection() {
-        let liste_med_plasser = pois;
+    function YagerIntersection(){
+        let liste_med_plasser = poisW;
         const valgtVurdering = vurdering;
         const valgtStoy = stoy;
         const valgtAvstand = nerhet * 1000;
@@ -111,7 +118,7 @@ export default function FilterSite() {
                     ((1 - a) ** vekt + (1 - b) ** vekt + (1 - c) ** vekt) **
                         (1 / vekt)
                 );
-            const point = { id: plass[0], snitt: snitt };
+            const point = { id: plass[0], snitt: snitt, avstand: avstand };
             if (bestePlasser.length < 5 || bestePlasser[4].snitt < snitt) {
                 if (bestePlasser.length < 5) {
                     bestePlasser.push(point);
@@ -124,8 +131,10 @@ export default function FilterSite() {
                 return b.snitt - a.snitt;
             });
         }
+        places = bestePlasser;
         setBestPlaces(bestePlasser);
-        console.log(bestPlaces);
+        console.log(bestePlasser);
+        console.log(places);
     }
 
     function middleNumber() {
@@ -156,7 +165,7 @@ export default function FilterSite() {
                 c = 0;
             }
             const snitt = vektVurdering * a + vektStoy * b + vektAvstand * c;
-            const point = { id: plass[0], snitt: snitt };
+            const point = { id: plass[0], snitt: snitt, avstand: avstand };
             if (bestePlasser.length < 5 || bestePlasser[4].snitt < snitt) {
                 if (bestePlasser.length < 5) {
                     bestePlasser.push(point);
@@ -169,17 +178,19 @@ export default function FilterSite() {
                 return b.snitt - a.snitt;
             });
         }
+        places = bestePlasser;
         setBestPlaces(bestePlasser);
-        console.log(bestPlaces);
+        console.log(bestePlasser);
     }
 
-    function handleSubmit(event) {
+    function handleSubmit() {
         if (checkNerhet || checkStoy || checkVurdering) {
             middleNumber();
         } else {
             YagerIntersection();
         }
-        // navigate("/");
+        console.log(places)
+        navigate("/result", { state: { places } });
     }
     return (
         <>
