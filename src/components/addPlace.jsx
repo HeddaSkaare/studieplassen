@@ -78,10 +78,10 @@ export default function AddPlace() {
                             value={noice}
                             onChange={handleNoiceChange}
                         />
-                        <p>Value: {noice}</p>
+                        <p>Verdi: {noice}</p>
                     </Form.Group>
                     <Form.Group className="email" size="lg" controlId="email">
-                        <Form.Label className="email">Vurdering</Form.Label>
+                        <Form.Label className="email">Helhetsinntrykk:</Form.Label>
                         <br></br>
                         <input
                             type="range"
@@ -90,26 +90,25 @@ export default function AddPlace() {
                             value={rating}
                             onChange={handleRatingChange}
                         />
-                        <p>Value: {cardEntrance}</p>
+                        <p>Verdi: {rating}</p>
                     </Form.Group>
                     <Form.Group className="email" size="lg" controlId="email">
-                        <Form.Label className="email">Korttilgang</Form.Label>
+                        <Form.Label className="email">Krever korttilgang</Form.Label>
                         <Button id="korttilgang" onClick={handleClick}>
-                            {cardEntrance ? "Access Granted" : "Access Denied"}
+                            {cardEntrance ? "Ja" : "Nei"}
                         </Button>
-                        <p>Value: {capasity}</p>
                     </Form.Group>
                     <Form.Group className="email" size="lg" controlId="email">
-                        <Form.Label className="email">capasitet</Form.Label>
+                        <Form.Label className="email">Størrelse:</Form.Label>
                         <br></br>
                         <input
                             type="range"
                             min={1}
-                            max={5}
+                            max={10}
                             value={capasity}
                             onChange={handleCapasityChange}
                         />
-                        <p>Value: {rating}</p>
+                        <p>Rundt {capasity*10} plasser</p>
                     </Form.Group>
                     <Form.Label className="email"> Tilgjengelighet</Form.Label>
                     <br />
