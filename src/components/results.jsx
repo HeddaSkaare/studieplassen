@@ -5,8 +5,9 @@ import NavBar from "./navBar";
 import MapResult from "./mapResult";
 import React, {useRef,useState} from 'react';
 import L from 'leaflet';
+import { makeVar } from "@apollo/client";
 
-
+export let clicked = makeVar("")
 function Results(){
 
     const pois = [];
@@ -33,7 +34,9 @@ function Results(){
         const avst= e.Avstand;
         pois.push({poID,navn,bygningnavn,vur,stoy,kort,cap,avst})})
 
-
+    function handleClick(poi){
+        clicked(poi);
+    }
     //console.log(pois)
     return(
     <div>
@@ -44,24 +47,28 @@ function Results(){
                     Dine beste studieplasser
                 </h3>          
                 <div className='sideBar2'>
-                    {pois.map((item)=>(
-                    <div className='result' >
+                    
+                    {pois.map((item)=>{
+                        console.log(item.poID)
+                        return(
+                            <div className='result'onClick={() => handleClick(item.poID)} >
                        
-                        <p id='first'>{item.navn}</p>
-                        <p id='second'>{item.bygningnavn}</p>
-                        <div className= "boxContainer"> 
-                            <div id="left">
-                                <p> Vurdering: {item.vur}</p>
-                                <p> Kapasitet: {item.cap}</p>
+                                <p id='first'>{item.navn}</p>
+                                <p id='second'>{item.bygningnavn}</p>
+                                <div className= "boxContainer"> 
+                                    <div id="left">
+                                        <p> Vurdering: {item.vur}</p>
+                                        <p> Kapasitet: {item.cap}</p>
+                                    </div>
+                                    <div id="right">
+                                    <p> Støynivå: {item.stoy}</p>
+                                    <p> Avstand: {item.avst} m</p>
+                                </div>
                             </div>
-                            <div id="right">
-                                <p> Støynivå: {item.stoy}</p>
-                                <p> Avstand: {item.avst} m</p>
-                            </div>
-                        </div>
-                        <p id='five'> {item.kort}</p>
-                    </div>      
-                    ))}
+                            <p id='five'> {item.kort}</p>
+                            </div>      
+                        )})
+                    }
                 </div> 
             </div>  
             <div>
