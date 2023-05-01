@@ -1,28 +1,94 @@
 
+@media only screen and (max-width: 750px) {
+
+    .sideBar p{
+        font-size: 8px;
+        margin-top: 5px;
+    }
+    #first{
+        font-size: 13px;
+    }
+    #second {
+        font-size: 8px;
+    }
+    div.result {
+        padding: 2%;
+    }
+    .sideBar {
+        margin-left: 4%;
+        margin-right: 2%;
+
+    }
+
+    .container {
+        grid-gap: 10px;
+    }
+    div.result {
+        margin-bottom: 10px
+    }
+    .sideBar h3 {
+        font-size: 15px;
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+    .boxContainer {
+        grid-gap: 10px;
+    }
+
+}
+
+@media only screen and (min-width: 750px) {
+    .boxContainer {
+            grid-gap: 20px;
+        }
+    .sideBar p {
+            font-size: 17px;
+            margin-top: 10px;
+        }
+    #second{
+        font-size: 14px;
+    }
+    div.result {
+        padding: 2%;
+    }
+    .sideBar {
+        margin-left: 11%;
+        margin-right: 11%;
+    }
+    .container {
+        grid-gap: 0px;
+    }
+    div.result {
+        margin-bottom: 20px
+    }
+    .sideBar h3 {
+        margin-bottom: 30px;
+        margin-top: 20px;
+    }
+    .boxContainer {
+        grid-gap: 20px;
+    }
+}
 .container{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
+
 }
 
 .sideBar {
     float: left;
-    margin-left:11%;
-    margin-right: 8%;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.sideBar p {
-    margin: 0px;
-    margin-top: 10px;
-    padding: 0px;
+.sideBar2{
+    max-height: 617px;
+    overflow-y: scroll;
 }
+
 
 .sideBar h3 {
     color: #3e4543;
-    margin-bottom: 30px;
-    margin-top: 20px;
 }
 
 div.sideBar2 :hover {
@@ -39,19 +105,22 @@ div.sideBar2 :active {
 }
 
 div.result {
-    padding: 4%;
-    padding-bottom: 8%;
     background-color: #e8f1ee;
+    border-radius: 20px;
+}
+div.result1 {
+    padding-bottom: 8%;
+    background-color: #d4e3de;
     border-radius: 20px;
     margin-bottom: 30px;
 }
+
 
 #first {
     font-weight: 700;
     margin-bottom: 5px;
 }
 #second {
-    font-size: 14px;
     margin: 10px;
     margin-top: 3px;
     margin-bottom: 4px;
@@ -60,8 +129,8 @@ div.result {
 .boxContainer{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
 }
+
 
 #left{
     justify-self: end;
@@ -69,17 +138,11 @@ div.result {
 #right {
     justify-self: start;
 }
-.tooltip{
+.my-tooltip{
     font-family: 'Futura';
-    padding: 2px;
+    padding: 1px;
     border: #000fb4;
-    color: black;
+    color: rgb(0, 0, 0);
     border-radius: 4px;
-}
-.marker-tooltip {
-    font-family: 'Futura';
-    padding: 8px;
-    border: #7bf517;
-    color: rgb(152, 0, 0);
-    border-radius: 4px;
+    font-size: medium;
 }

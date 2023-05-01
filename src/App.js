@@ -3,7 +3,6 @@ import React from "react";
 import "./App.css";
 import Map from "./components/map";
 import NavBar from "./components/navBar";
-import Results from "./components/results";
 import "./css/map.css";
 import "./css/page.css";
 import "./css/navBar.css";
