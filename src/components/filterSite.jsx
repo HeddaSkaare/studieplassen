@@ -117,10 +117,9 @@ export default function FilterSite() {
             let c =
                 avstand < nerhet * 1000
                     ? 1
-                    : Math.abs(avstand - nerhet * 1000) / 1000;
-            if (c < 0) {
-                c = 0;
-            }
+                    : avstand - nerhet * 1000 > 1000
+                    ? 0
+                    : 1 - Math.abs(avstand - nerhet * 1000) / 1000;
             const d = 1 - Math.abs(plass[9] * 10 - storrelse) / 100;
             const snitt =
                 1 -
@@ -144,7 +143,6 @@ export default function FilterSite() {
             bestePlasser.sort(function (a, b) {
                 return b[1] - a[1];
             });
-            console.log("snitt: ", snitt, "beste: ", bestePlasser);
         }
         places = bestePlasser;
         setBestPlaces(bestePlasser);
@@ -203,7 +201,6 @@ export default function FilterSite() {
             bestePlasser.sort(function (a, b) {
                 return b[1] - a[1];
             });
-            console.log("snitt: ", snitt, "beste: ", bestePlasser);
         }
         places = bestePlasser;
         setBestPlaces(bestePlasser);
