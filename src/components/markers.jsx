@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import points from '../data/pointIds.json';
 import info from '../data/infos.json';
 import {makeVar } from '@apollo/client';
+import "../css/map.css";
 
 
 const iconP = L.icon({
@@ -58,15 +59,22 @@ function Markers() {
           const floor = point[3]
           const name = point[5]
           const building = point[4]
+          const cap = point[9]*10 
           return (
             <Marker position={coord} icon={iconP} onClick={()=> setReload(true)}>
               <Popup>
                 <p><b>{name}</b></p>
-                <p>{building}</p>
-                <p>floor: {floor}</p>
-                <p>StoyNiva {point[6]}, Vurdering {point[7]}</p>
-                <p>Korttilgang {point[8] ? 'Ja' : 'Nei'}, kapasitet {point[9]}</p>
-                <button onClick={() => Click(point[0],name)}>Oppdater info</button>
+                <div className='markPop'>
+                  <p>{building}</p>
+                  <div className='markPopVal'>
+                    <p>Etasje: {floor}</p>
+                    <p>Støy nivå: {point[6]}</p>
+                    <p>Vurdering: {point[7]}</p>
+                    <p>Korttilgang: {point[8] ? 'Ja' : 'Nei'}</p>
+                  </div>
+                  <p>Kapasitet: rundt {cap} plasser</p>
+                  <button onClick={() => Click(point[0],name)}>Oppdater info</button>
+                </div>
               </Popup>
             </Marker>)
         })

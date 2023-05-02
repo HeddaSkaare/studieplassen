@@ -19,6 +19,12 @@
     margin-top: 5px;
 }
 
+.markPopVal{
+    display: grid;
+    
+}
+
+
 .leaflet-container {
     position: relative;
     float: right;
