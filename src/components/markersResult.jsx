@@ -60,8 +60,6 @@ function MarkersResult() {
     const res1 = pois.filter((element) => places.find(obj => obj[0] === element[0]));
     console.log("filter",res1)
 
-  //punktId = point[i][0], cordinater = [point[i][2],point[i][1]], floor = point[i][3], building = point[i][4], name = point[i][5]
-    //stoyNivaa = point[i][6], Vurdering= point[i][7], Korttilgang = point[i][8], kapasitet =point[i][9]
   return (
     <div>
       {

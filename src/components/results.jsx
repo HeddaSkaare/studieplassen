@@ -33,34 +33,13 @@ function Results() {
         places.find((obj) => obj[0] === element[0])
     );
     console.log("filtery", res1);
-    // vurderinger.data.forEach((e)=>{
-    //     console.log()
-    //     const poID = e.poiId;
-    //     var navn = undefined
-    //     var bygningnavn = undefined
-    //     var kort = undefined
-    //     points.points.forEach((poi)=>{
-    //         if(poi.poiId===poID)
-    //         {navn = poi.mapText
-    //         bygningnavn = poi.buildingName}})
+  
 
-    //     const vur = e.Vurdering;
-    //     const stoy = e.StoyNiva;
-    //     if(e.Korttilgan){
-    //         kort="Må ha korttilgang"
-    //     } else{
-    //         kort="Trenger ikke korttilgang"
-    //     }
-    //     const cap = e.kapasitet;
-    //     const avst= e.Avstand;
-    //     pois.push({poID,navn,bygningnavn,vur,stoy,kort,cap,avst})})
 
     function handleClick(poi) {
         clicked(poi);
     }
-    //console.log(pois)
-    //punktId = point[i][0], cordinater = [point[i][2],point[i][1]], floor = point[i][3], building = point[i][4], name = point[i][5]
-    //stoyNivaa = point[i][6], Vurdering= point[i][7], Korttilgang = point[i][8], kapasitet =point[i][9]
+
     return (
         <div>
             <NavBar></NavBar>

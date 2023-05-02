@@ -45,8 +45,6 @@ export default function FilterSite() {
     const poisU = pois.filter(
         (element) => element[6] == undefined || element[6] == null
     ); //punkter uten vurdering
-    //punktId = point[i][0], cordinater = [point[i][2],point[i][1]], floor = point[i][3], building = point[i][4], name = point[i][5]
-    //stoyNivaa = point[i][6], Vurdering= point[i][7], Korttilgang = point[i][8], kapasitet =point[i][9]
     function onChangeStoy(event) {
         setStoy(event.target.value);
     }
