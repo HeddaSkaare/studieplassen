@@ -59,7 +59,7 @@ function Markers() {
           const name = point[5]
           const building = point[4]
           return (
-            <Marker position={coord} icon={iconP} onClick={()=> setReload(true)}>
+            <Marker position={coord} icon={iconP}>
               <Popup>
                 <p><b>{name}</b></p>
                 <p>{building}</p>
@@ -78,7 +78,7 @@ function Markers() {
           const name = point[5]
           const building = point[4]
           return (
-            <Marker position={coord} icon={iconP} onClick={()=> setReload(true)}>
+            <Marker position={coord} icon={iconP}>
               <Popup>
                 <p><b>{name}</b></p>
                 <p>{building}</p>
