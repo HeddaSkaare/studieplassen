@@ -1,16 +1,25 @@
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 550px) {
     .navBar a {
-        font-size: 12px;
+        font-size: 13px;
     }
     .navBar {
         padding: 10px;
-        padding-left: 0px;
-        padding-right: 0px;
+        padding-left: 10px;
+        padding-right: 5px;
     }
 }
+@media only screen and (min-width: 551px) and ( max-width: 750px) {
+    .navBar a {
+        font-size: 15px;
+    }
 
-@media only screen and (min-width: 601px) {
-
+    .navBar {
+        padding: 10px;
+        padding-left: 40px;
+        padding-right: 10px;
+    }
+}
+@media only screen and (min-width: 751px) {
     .navBar a {
             font-size: 17px;
         }

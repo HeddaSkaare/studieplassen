@@ -14,8 +14,7 @@
 @media only screen and (max-width: 750px) {
   .fragment {
       font-size: 13px;
-      text-align: left;
-      font-family: tahoma;
+      font-family: Arial, Helvetica, sans-serif;
       border: 1px solid #3e4543;
       border-radius: 20px;
       background-color: #ebf3f0;
@@ -28,11 +27,14 @@
       width: 240px;
       height: 140px;
       z-index: 1;
+      text-align: left;
     }
     .fragment h3 {
+      font-family: 'Futura';
       padding: 3px;
       margin: 0;
-      font-size: 14px;
+      font-size: 13px;
+      color: #3e4543;
     }
         .fragment p {
           text-align: center;
@@ -42,7 +44,7 @@
   .fragment {
     text-align: left;
     font-size: 16px;
-    font-family: tahoma;
+    font-family: Arial, Helvetica, sans-serif;
     border: 1px solid #3e4543;
     border-radius: 20px;
     background-color: #ebf3f0;
@@ -56,9 +58,11 @@
   }
 
   .fragment h3 {
+    font-family: 'Futura';
     padding: 3px;
     margin: 0;
-    font-size: 18px;
+    font-size: 17px;
+    color: #3e4543;
   }
 
 }
@@ -68,10 +72,6 @@
   z-index: 1;
 }
 
-
-.fragment h3 {
-  color: #3e4543;
-}
 
 
 #close {
