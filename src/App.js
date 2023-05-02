@@ -7,6 +7,7 @@ import Alert from "./components/alert";
 import "./css/map.css";
 import "./css/page.css";
 import "./css/navBar.css";
+import "./css/addPlace.css";
 
 function App() {
     return (

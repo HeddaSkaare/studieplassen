@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
 import "../css/filterSite.css";
 import NavBar from "./navBar";
 
@@ -19,6 +20,10 @@ export default function FilterSite() {
     const [bestPlaces, setBestPlaces] = useState([]);
     const [korttilgang, setKorttilgang] = useState(false);
     const [hasFetchedLoc, setHasFetchedLoc] = useState(false);
+
+    const [stoyT,setStoyT]=useState("Middels")
+    const stoyArray = ["Helt stille","Litt stille","Middels","Litt støy", "Støy"]
+
     let places = [];
     useEffect(() => {
         if (!hasFetchedData) {
@@ -46,6 +51,10 @@ export default function FilterSite() {
         (element) => element[6] == undefined || element[6] == null
     ); //punkter uten vurdering
     function onChangeStoy(event) {
+        event.preventDefault();
+        
+        var i = event.target.value 
+        setStoyT(stoyArray[i-1])
         setStoy(event.target.value);
     }
 
@@ -54,6 +63,7 @@ export default function FilterSite() {
     }
 
     function onChangeCheckedStoy() {
+        
         setCheckStoy(!checkStoy);
     }
 
@@ -225,82 +235,54 @@ export default function FilterSite() {
             <header className="header">
                 <h1>Finn studieplass</h1>
             </header>
-            <div className="filterBox">
-                <div id="container">
+            <div className="box" id="boxF">
+                <div className="boxElement">
                     <div className="headerWeights">
                         <div>
                             <p></p>
                         </div>
+                        
                         <h2 id="title">Støy </h2>
-                        <div id="weight">
+                        <div className="weight">
                             <input
+                                id="check1"
                                 type="checkbox"
                                 name="check"
                                 onChange={onChangeCheckedStoy}
                             ></input>
-                            <p>Viktig?</p>
+                            <label for= "check1">Viktig</label>
                         </div>
                     </div>
-                    <div className="choice" onChange={onChangeStoy}>
-                        <p>1</p>
-                        <p>2</p>
-                        <p>3</p>
-                        <p>4</p>
-                        <p>5</p>
-                        <input type="radio" id="1" value="1" name="stoy" />{" "}
-                        <input type="radio" id="1" value="2" name="stoy" />{" "}
-                        <input type="radio" id="1" value="3" name="stoy" />{" "}
-                        <input type="radio" id="1" value="4" name="stoy" />{" "}
-                        <input type="radio" id="1" value="5" name="stoy" />{" "}
-                    </div>
+                
+                         <input
+                            className="slider"
+                            type="range"
+                            min={1}
+                            max={5}
+                            value={stoy}
+                            onChange={onChangeStoy}
+                        />
+                        <p> {stoyT}</p>
                 </div>
-                <div id="container">
+                <div className="boxElement">
                     <div className="headerWeights">
                         <div>
                             <p></p>
                         </div>
-                        <h2 id="kort1">Høy Vurdering?</h2>
-                        <div id="weight">
+                        <h2 >Antall plasser</h2>
+                        <div className="weight">
                             <input
-                                type="checkbox"
-                                name="check"
-                                onChange={onChangeCheckedVurdering}
-                            ></input>
-                            <p>Viktig?</p>
-                        </div>
-                    </div>
-                </div>
-                <div id="container">
-                    <div className="headerWeights">
-                        <div>
-                            <p></p>
-                        </div>
-                        <h2 id="kort1">Har du korttilgang?</h2>
-                        <div id="kort2">
-                            <input
-                                type="checkbox"
-                                name="check"
-                                onChange={onChangeKorttilgang}
-                            />
-                        </div>
-                    </div>
-                </div>
-                <div id="container">
-                    <div className="headerWeights">
-                        <div>
-                            <p></p>
-                        </div>
-                        <h2 id="kort1">Antall plasser</h2>
-                        <div id="weight">
-                            <input
+                                id="check2"
                                 type="checkbox"
                                 name="check"
                                 onChange={onChangeCheckedStorrelse}
                             ></input>
-                            <p>Viktig?</p>
+                            <label for= "check2">Viktig</label>
                         </div>
+                    </div>
                         <div></div>
                         <input
+                        className="slider"
                             type="range"
                             step={10}
                             min={10}
@@ -309,24 +291,27 @@ export default function FilterSite() {
                             onChange={onChangeStorrelse}
                         />
                         <p>Rundt {storrelse} plasser</p>
-                    </div>
+                
                 </div>
-                <div id="container">
+                <div className="boxElement">
                     <div className="headerWeights">
                         <div>
                             <p></p>
                         </div>
                         <h2>Avstand</h2>
-                        <div id="weight">
+                        <div className="weight">
                             <input
+                                id="check3"
                                 type="checkbox"
                                 name="check"
                                 onChange={onChangeCheckedNerhet}
                             ></input>
-                            <p>Viktig?</p>
+                            <label for= "check3">Viktig</label>
                         </div>
-                        <br />
+                    </div>
+                       
                         <input
+                            className="slider"
                             type="range"
                             step={0.1}
                             min={1}
@@ -334,16 +319,43 @@ export default function FilterSite() {
                             value={nerhet}
                             onChange={onChangeNerhet}
                         />
-                        <p>km: {nerhet}</p>
+                        <p>{nerhet} km unna</p>
+                    
+                </div>
+                 <div className="gridF">
+                    <div className="boxElement">
+                            <h2 id="kort1"> Høyt vurdert?</h2>
+                            <div className="weight" id="weight4">
+                                <input
+                                    id="check4"
+                                    type="checkbox"
+                                    name="check"
+                                    onChange={onChangeCheckedVurdering}
+                                ></input>
+                                <label for= "check4">Viktig</label>
+                            
+                            </div>
+                        
+                    </div>
+
+                
+                    <div className="boxElement">
+                            <h2 >Har du korttilgang?</h2>
+                            <Button className="button" onClick={onChangeKorttilgang}>
+                                {korttilgang ? "Ja" : "Nei"}
+                            </Button>
                     </div>
                 </div>
                 <div id="element">
-                    <button id="sok" onClick={handleSubmit}>
+                    <button 
+                    className="button"
+                    id="addForm" 
+                    onClick={handleSubmit}>
                         Finn leseplass
                     </button>
                 </div>
             </div>{" "}
-            {/* filterBox*/}
+
         </>
     );
 }
