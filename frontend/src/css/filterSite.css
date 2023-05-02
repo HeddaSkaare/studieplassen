@@ -1,40 +1,37 @@
-
-@media only screen and (min-width: 751px) {
-
-
-}
-.header {
-    text-align: center;
-    font-family: 'Futura';
-    color: #3e4543;
-}
-.filterBox {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #e8f1ee;
-    width: 30%;
-    border-radius: 30px;
-    border-width: 2px;
-    border-color: #446662;
-    padding: 20px;
-    margin: auto;
-    text-align: center;
-}
 .headerWeights {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 10px;
 }
 
-.headerWeights > h2 {
+h2 {
     font-size: 17px;
     margin: 0px;
 }
+
+.gridF{
+    display: grid;
+    padding-left: 1px;
+    grid-template-columns: 4cm 4cm;
+    justify-items: center;
+    justify-content: center;
+}
+
+.gridF h2{
+    margin: 0px;
+    font-size: 15px;
+}
+
+#kort1 {
+    margin-bottom: 9px;
+}
+
 #weight{
     display: inline;
     justify-self: start;
+    border-radius: 50%;
 }
 
 #weight p {
@@ -42,51 +39,52 @@
     display: inline;
     margin: 0px;
 }
-#container{
-    margin-bottom: 15px;
-}
-.choice{
 
-    display: grid;
-    grid-template-columns:30px 30px 30px 30px 30px;
-    justify-content: center;
+.weight input[type="checkbox"] {
+    display: none;
+    visibility: hidden;
+}
 
+.weight label {
+    position: relative;
+    padding-left: 20px;
+    padding-right: 10px;
+    line-height: 2;
+    display: inline-flex;
+    z-index: 1;
+    font-size: 13px;
+    color: #59615f;
 }
-#button {
-    margin: 8px;
-    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.4);
-    border: none;
-}
-#kort1 {
-    white-space: nowrap;
 
-}
-#kort2{
-    display: inline;
-    justify-self: start;
-}
-input[type="radio"] {
+.weight label:before {
+    box-sizing: border-box;
+    content: " ";
+    position: absolute;
+    top: 5.5px;
+    left: 0;
     display: block;
+    width: 15px;
+    height: 15px;
+    border: 1.5px solid #a8bbb5;
+    border-radius: 4px;
+    z-index: -1;   
 }
 
-
-#sok {
-    background-color: #a9c9c6; 
-    border-radius: 10px;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin-top: 10px;
-}
-#sok:active {
-    background-color: #6d938f;
+.weight input[type=checkbox]:checked+label {
+    padding-left: 1em;
+    color: #3e4543;
 }
 
-
-.slidecontainer {
-    color: #a9c9c6;
+.weight input[type=checkbox]:checked+label:before {
+    top: 0;
     width: 100%;
+    height: 2em;
+    background: #d3e2de;
+    border-color: #a8bbb5;
 }
+
+.weight label,
+.weight label::before {
+    transition: 0.25s all ease;
+}
+

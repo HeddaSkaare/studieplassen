@@ -17,9 +17,15 @@ export default function AddPlace() {
     const [to, setTo] = useState("");
     const navigate = useNavigate();
 
+    const [noiceT,setNoiceT]=useState("Middels")
+    const [ratingT,setRaintingT]=useState("Ok")
+    const noiceArray = ["Helt stille","Litt stille","Middels","Litt støy", "Støy"]
+    const raitingArray = ["Dårlig","Litt dårlig","Ok","Bra", "Svært bra"]
+
     function validateForm() {
         return noice.length > 0 && rating <= 10 && rating >= 1;
     }
+   
     function handleSubmit(event) {
         event.preventDefault();
         const poiId = Id;
@@ -48,10 +54,14 @@ export default function AddPlace() {
     function handleNoiceChange(event) {
         event.preventDefault();
         setNoice(event.target.value);
+        var i = event.target.value 
+        setNoiceT(noiceArray[i-1])
     }
     function handleRatingChange(event) {
         event.preventDefault();
         setRating(event.target.value);
+         var i = event.target.value 
+        setRaintingT(raitingArray[i-1])
     }
     function handleCapasityChange(event) {
         event.preventDefault();
@@ -60,78 +70,72 @@ export default function AddPlace() {
     function handleClick() {
         setCardEntrance(!cardEntrance);
     }
+   
+    
     return (
         <div>
             <NavBar />
             <div>
-                <header id="header">
+                <header className="header">
                     <h1>Legg Til Info til {name} </h1>
                 </header>
-                <Form className="Login" onSubmit={handleSubmit}>
-                    <Form.Group className="email" size="lg" controlId="email">
-                        <Form.Label className="email">Støy</Form.Label>
+                <Form className="box" onSubmit={handleSubmit}>
+                    <Form.Group className="boxElement" size="lg" controlId="email" >
+                        <Form.Label className="label">Lydnivå:</Form.Label>
                         <br></br>
                         <input
+                            className="slider"
                             type="range"
                             min={1}
                             max={5}
                             value={noice}
                             onChange={handleNoiceChange}
                         />
-                        <p>Verdi: {noice}</p>
+                        <p>{noiceT}</p>
                     </Form.Group>
-                    <Form.Group className="email" size="lg" controlId="email">
-                        <Form.Label className="email">Helhetsinntrykk:</Form.Label>
+                    
+                    <Form.Group className="boxElement" size="lg" controlId="email">
+                        <Form.Label className="label">Krever korttilgang</Form.Label>
+                        <br></br>
+                        <Button className="button" onClick={handleClick}>
+                            {cardEntrance ? "Ja" : "Nei"}
+                        </Button>
+                    </Form.Group>
+                    <Form.Group className="boxElement" size="lg" controlId="email">
+                        <Form.Label className="label">Kapasitet:</Form.Label>
                         <br></br>
                         <input
+                            className="slider"
+                            type="range"
+                            min={1}
+                            max={10}
+                            value={capasity}
+                            onChange={handleCapasityChange}
+                            
+                        />
+                        <p>Rundt {capasity*10} plasser</p>
+                    </Form.Group>
+                    <Form.Group className="boxElement" size="lg" controlId="email">
+                        <Form.Label className="label">Helhetsinntrykk:</Form.Label>
+                        <br></br>
+                        <input
+                            className="slider"
                             type="range"
                             min={1}
                             max={5}
                             value={rating}
                             onChange={handleRatingChange}
                         />
-                        <p>Verdi: {rating}</p>
+                        <p>{ratingT} </p>
+
                     </Form.Group>
-                    <Form.Group className="email" size="lg" controlId="email">
-                        <Form.Label className="email">Krever korttilgang</Form.Label>
-                        <Button id="korttilgang" onClick={handleClick}>
-                            {cardEntrance ? "Ja" : "Nei"}
-                        </Button>
-                    </Form.Group>
-                    <Form.Group className="email" size="lg" controlId="email">
-                        <Form.Label className="email">Størrelse:</Form.Label>
-                        <br></br>
-                        <input
-                            type="range"
-                            min={1}
-                            max={10}
-                            value={capasity}
-                            onChange={handleCapasityChange}
-                        />
-                        <p>Rundt {capasity*10} plasser</p>
-                    </Form.Group>
-                    <Form.Label className="email"> Tilgjengelighet</Form.Label>
-                    <br />
-                    <TimePicker
-                        className="email"
-                        step={60}
-                        value={from}
-                        onChange={(e) => setFrom(e)}
-                    />
-                    <TimePicker
-                        className="email"
-                        step={60}
-                        value={to}
-                        onChange={(e) => setTo(e)}
-                    />
-                    <br />
                     <Button
-                        id="addVurdering"
+                        className="button"
+                        id="addForm"
                         block
                         size="lg"
                         type="submit"
-                        disabled={!validateForm()}
-                    >
+                        disabled={!validateForm()}                    >
                         Legg Til
                     </Button>
                 </Form>
