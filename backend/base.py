@@ -48,8 +48,8 @@ def get_vurdering():#henter vurdering
         print(request.data)
         with closing(conn.cursor()) as cur:
             cur.execute(
-                """SELECT *\
-                  FROM "Info" ;
+                """SELECT "poiID", ST_X(coordinates) AS lat, ST_Y(coordinates) AS lng, floorname, "buildingName", maptext, "StoyNiva","Vurdering","Korttilgang","Storrelse"\
+                  FROM "Punkter" JOIN "Info" ON "Punkter"."poiID" = "Info"."PunktID"  ;
                 """
             )
             rows = cur.fetchall()

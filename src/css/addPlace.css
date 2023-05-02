@@ -1,0 +1,17 @@
+.header {
+    text-align: center;
+    font-family: 'Futura';
+    color: #3e4543;
+}
+
+.filterBox {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #e8f1ee;
+    width: 30%;
+    border-radius: 30px;
+    border-width: 2px;
+    border-color: #446662;
+    padding: 20px;
+    margin: auto;
+    text-align: center;
+}
