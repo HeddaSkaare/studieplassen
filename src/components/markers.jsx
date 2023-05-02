@@ -62,18 +62,17 @@ function Markers() {
           const cap = point[9]*10 
           return (
             <Marker position={coord} icon={iconP} onClick={()=> setReload(true)}>
-              <Popup>
-                <p><b>{name}</b></p>
+              <Popup className='popup'>
+                <h3><b>{name}, {building}</b></h3>
                 <div className='markPop'>
-                  <p>{building}</p>
                   <div className='markPopVal'>
-                    <p>Etasje: {floor}</p>
-                    <p>Støy nivå: {point[6]}</p>
-                    <p>Vurdering: {point[7]}</p>
-                    <p>Korttilgang: {point[8] ? 'Ja' : 'Nei'}</p>
+                    <p><b>Etasje: </b> {floor}</p>
+                    <p><b>Støy nivå: </b> {point[6]}</p>
+                    <p><b>Vurdering: </b> {point[7]}</p>
+                    <p><b>Korttilgang: </b> {point[8] ? 'Ja' : 'Nei'}</p>
                   </div>
-                  <p>Kapasitet: rundt {cap} plasser</p>
-                  <button onClick={() => Click(point[0],name)}>Oppdater info</button>
+                  <p><b>Kapasitet: </b> rundt {cap} plasser</p>
+                  <button className='popbutt' onClick={() => Click(point[0],name)}>Oppdater info</button>
                 </div>
               </Popup>
             </Marker>)
