@@ -3,9 +3,11 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import React, { useEffect, useState } from "react";
 import { Marker, Popup } from "react-leaflet";
-import { useNavigate } from "react-router-dom";
-import info from "../data/infos.json";
-import points from "../data/pointIds.json";
+import { useNavigate } from 'react-router-dom';
+import points from '../data/pointIds.json';
+import info from '../data/infos.json';
+import "../css/map.css";
+
 
 const iconP = L.icon({
     iconUrl: require("../static/icons/Point2.png"),
@@ -48,57 +50,56 @@ function Markers() {
         }
     }, [reload]);
 
-    return (
-        <div>
-            {poisW.map((point) => {
-                const coord = [point[2], point[1]];
-                const floor = point[3];
-                const name = point[5];
-                const building = point[4];
-                return (
-                    <Marker position={coord} icon={iconP}>
-                        <Popup>
-                            <p>
-                                <b>{name}</b>
-                            </p>
-                            <p>{building}</p>
-                            <p>floor: {floor}</p>
-                            <p>
-                                StoyNiva {point[6]}, Vurdering {point[7]}
-                            </p>
-                            <p>
-                                Korttilgang {point[8] ? "Ja" : "Nei"}, kapasitet{" "}
-                                {point[9]}
-                            </p>
-                            <button onClick={() => Click(point[0], name)}>
-                                Oppdater info
-                            </button>
-                        </Popup>
-                    </Marker>
-                );
-            })}
-            {poisU.map((point) => {
-                const coord = [point[2], point[1]];
-                const floor = point[3];
-                const name = point[5];
-                const building = point[4];
-                return (
-                    <Marker position={coord} icon={iconP}>
-                        <Popup>
-                            <p>
-                                <b>{name}</b>
-                            </p>
-                            <p>{building}</p>
-                            <p>Floor: {floor}</p>
-                            <button onClick={() => Click(point[0], name)}>
-                                Legg til info
-                            </button>
-                        </Popup>
-                    </Marker>
-                );
-            })}
-        </div>
-    );
+
+
+
+  return (
+    <div>
+      {
+        poisW.map((point)=>{
+          const coord = [point[2],point[1]]
+          const floor = point[3]
+          const name = point[5]
+          const building = point[4]
+          const cap = point[9]*10 
+          return (
+            <Marker position={coord} icon={iconP}>
+              <Popup className='popup'>
+                <h3><b>{name}, {building}</b></h3>
+                <div className='markPop'>
+                  <div className='markPopVal'>
+                    <p><b>Etasje: </b> {floor}</p>
+                    <p><b>Støy nivå: </b> {point[6]}</p>
+                    <p><b>Vurdering: </b> {point[7]}</p>
+                    <p><b>Korttilgang: </b> {point[8] ? 'Ja' : 'Nei'}</p>
+                  </div>
+                  <p><b>Kapasitet: </b> rundt {cap} plasser</p>
+                  <button className='popbutt' onClick={() => Click(point[0],name)}>Oppdater info</button>
+                </div>
+              </Popup>
+            </Marker>)
+        })
+      }
+      {
+        poisU.map((point)=>{
+          const coord = [point[2],point[1]]
+          const floor = point[3]
+          const name = point[5]
+          const building = point[4]
+          return (
+            <Marker position={coord} icon={iconP} >
+              <Popup>
+                <p><b>{name}</b></p>
+                <p>{building}</p>
+                <p>Floor: {floor}</p>
+                <button onClick={() => Click(point[0],name)}>Legg til info</button>
+              </Popup>
+            </Marker>)
+        })
+      }
+    </div>
+  )
+  ;
 }
 
 export default Markers;
