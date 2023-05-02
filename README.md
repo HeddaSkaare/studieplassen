@@ -9,10 +9,17 @@ In the project directory;
 
 start backend:
 
-### `npm run start-backend`
+### `cd backend`
+
+### `pip3 install flask`
+
+### `pip3 install psycopg2`
+
+### `flask run`
 
 start app:
-
+### `npm install @apollo/client`
+### `npm i`
 ### `npm start`
 
 Runs the app in the development mode.\
