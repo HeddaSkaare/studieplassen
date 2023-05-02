@@ -28,10 +28,11 @@ function Results() {
     }, [hasFetchedData]);
     let clicked2 = useReactiveVar(clickedPoint);
 
+    const po = []
     const res1 = pois.filter((element) =>
-        places.find((obj) => obj.id === element[0])
+        places.find((obj) => obj[0] === element[0])
     );
-    console.log("filter", res1);
+    console.log("filtery", res1);
     // vurderinger.data.forEach((e)=>{
     //     console.log()
     //     const poID = e.poiId;
@@ -68,6 +69,10 @@ function Results() {
                     <h3>Dine beste studieplasser</h3>
                     <div className="sideBar2">
                         {res1.map((item) => {
+                            const po = places.find(el => el[0] === item[0])
+                            const avstand = po[2]
+                            const snitt = po[1]
+                            console.log(avstand)
                             if (clicked2 == item[0]) {
                                 return (
                                     <div
@@ -80,9 +85,13 @@ function Results() {
                                             <div id="left">
                                                 <p> Vurdering: {item[7]}</p>
                                                 <p> Kapasitet: {item[9]}</p>
+                                                <p> Avstand: {avstand} m</p>
+                                                <p> Match: {snitt}</p>
                                             </div>
                                             <div id="right">
                                                 <p> Støynivå: {item[6]}</p>
+                                                <p> Avstand: {avstand} m</p>
+                                                <p> Match: {snitt}</p>
                                             </div>
                                         </div>
                                         <p id="five">

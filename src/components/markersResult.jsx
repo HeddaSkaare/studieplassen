@@ -57,7 +57,7 @@ function MarkersResult() {
         }
     }, [hasFetchedData]);
    
-    const res1 = pois.filter((element) => places.find(obj => obj.id === element[0]));
+    const res1 = pois.filter((element) => places.find(obj => obj[0] === element[0]));
     console.log("filter",res1)
 
   //punktId = point[i][0], cordinater = [point[i][2],point[i][1]], floor = point[i][3], building = point[i][4], name = point[i][5]

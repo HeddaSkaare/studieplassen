@@ -142,7 +142,7 @@ export default function FilterSite() {
                         (1 - d) ** vekt) **
                         (1 / vekt)
                 );
-            const point = { id: plass[0], snitt: snitt, avstand: avstand };
+            const point = [plass[0], snitt, avstand ];
             if (bestePlasser.length < 5 || bestePlasser[4].snitt < snitt) {
                 if (bestePlasser.length < 5) {
                     bestePlasser.push(point);
@@ -198,7 +198,7 @@ export default function FilterSite() {
                 vektStoy * b +
                 vektAvstand * c +
                 vektStorrelse * d;
-            const point = { id: plass[0], snitt: snitt, avstand: avstand };
+            const point = [plass[0], snitt,  avstand ];
             if (bestePlasser.length < 5 || bestePlasser[4].snitt < snitt) {
                 if (bestePlasser.length < 5) {
                     bestePlasser.push(point);
