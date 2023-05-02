@@ -6,6 +6,7 @@ import MapResult from "./mapResult";
 import { clickedPoint } from "./markersResult";
 import NavBar from "./navBar";
 
+
 export let clicked = makeVar("");
 function Results() {
     const [hasFetchedData, setHasFetchedData] = useState(false);
@@ -28,7 +29,6 @@ function Results() {
     }, [hasFetchedData]);
     let clicked2 = useReactiveVar(clickedPoint);
 
-    const po = []
     const res1 = pois.filter((element) =>
         places.find((obj) => obj[0] === element[0])
     );
@@ -85,16 +85,15 @@ function Results() {
                                             <div id="left">
                                                 <p> Vurdering: {item[7]}</p>
                                                 <p> Kapasitet: {item[9]}</p>
-                                                <p> Avstand: {avstand} m</p>
-                                                <p> Match: {snitt}</p>
                                             </div>
                                             <div id="right">
                                                 <p> Støynivå: {item[6]}</p>
-                                                <p> Avstand: {avstand} m</p>
-                                                <p> Match: {snitt}</p>
+                                                <p> Avstand: {Math.round(avstand)} m</p>
+                                          
                                             </div>
                                         </div>
                                         <p id="five">
+                                        <p> Match: {snitt.toFixed(2)}</p>
                                             {" "}
                                             {item[8]
                                                 ? "Må ha korttilgang"
@@ -117,9 +116,11 @@ function Results() {
                                         </div>
                                         <div id="right">
                                             <p> Støynivå: {item[6]}</p>
+                                            <p> Avstand: {Math.round(avstand)} m</p>
                                         </div>
                                     </div>
                                     <p id="five">
+                                    <p> Match: {snitt.toFixed(2)}</p>
                                         {" "}
                                         {item[8]
                                             ? "Trenger ikke korttilgang"
