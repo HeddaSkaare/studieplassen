@@ -8,7 +8,7 @@ export default function FilterSite() {
     const [checkStoy, setCheckStoy] = useState(false);
     const [storrelse, setStorrelse] = useState(50);
     const [checkStorrelse, setCheckStorrelse] = useState(false);
-    const [vurdering, setVurdering] = useState(3);
+    const [vurdering, setVurdering] = useState(5);
     const [checkVurdering, setCheckVurdering] = useState(false);
     const [nerhet, setNerhet] = useState(3);
     const [checkNerhet, setCheckNerhet] = useState(false);
@@ -47,10 +47,6 @@ export default function FilterSite() {
     ); //punkter uten vurdering
     function onChangeStoy(event) {
         setStoy(event.target.value);
-    }
-
-    function onChangeVurdering(event) {
-        setVurdering(event.target.value);
     }
 
     function onChangeNerhet(event) {
@@ -106,10 +102,6 @@ export default function FilterSite() {
         } else {
             liste_med_plasser = pois.filter((element) => element[8] == false);
         }
-        const valgtVurdering = vurdering;
-        const valgtStoy = stoy;
-        const valgtAvstand = nerhet * 1000;
-        const valgtStorrelse = storrelse;
         const vekt = 10;
         let bestePlasser = [];
         for (let i = 0; i < liste_med_plasser.length; i++) {
@@ -120,16 +112,16 @@ export default function FilterSite() {
                 plass[2],
                 plass[1]
             );
-            const a = 1 - Math.abs(plass[7] - valgtVurdering) / 5;
-            const b = 1 - Math.abs(plass[6] - valgtStoy) / 5;
+            const a = 1 - Math.abs(plass[7] - vurdering) / 5;
+            const b = 1 - Math.abs(plass[6] - stoy) / 5;
             let c =
-                avstand < valgtAvstand
+                avstand < nerhet * 1000
                     ? 1
-                    : Math.abs(avstand - valgtAvstand) / 1000;
+                    : Math.abs(avstand - nerhet * 1000) / 1000;
             if (c < 0) {
                 c = 0;
             }
-            const d = 1 - Math.abs(plass[9] - valgtStorrelse) / 100;
+            const d = 1 - Math.abs(plass[9] * 10 - storrelse) / 100;
             const snitt =
                 1 -
                 Math.min(
@@ -140,8 +132,8 @@ export default function FilterSite() {
                         (1 - d) ** vekt) **
                         (1 / vekt)
                 );
-            const point = [plass[0], snitt, avstand ];
-            if (bestePlasser.length < 5 || bestePlasser[4].snitt < snitt) {
+            const point = [plass[0], snitt, avstand];
+            if (bestePlasser.length < 5 || bestePlasser[4][1] < snitt) {
                 if (bestePlasser.length < 5) {
                     bestePlasser.push(point);
                 } else {
@@ -150,8 +142,9 @@ export default function FilterSite() {
                 }
             }
             bestePlasser.sort(function (a, b) {
-                return b.snitt - a.snitt;
+                return b[1] - a[1];
             });
+            console.log("snitt: ", snitt, "beste: ", bestePlasser);
         }
         places = bestePlasser;
         setBestPlaces(bestePlasser);
@@ -168,10 +161,12 @@ export default function FilterSite() {
         let vektVurdering = checkVurdering ? 5 : 1;
         let vektAvstand = checkNerhet ? 5 : 1;
         let vektStorrelse = checkStorrelse ? 5 : 1;
-        const sumVekter = vektStoy + vektVurdering + vektAvstand;
+        const sumVekter =
+            vektStoy + vektVurdering + vektAvstand + vektStorrelse;
         vektStoy /= sumVekter;
         vektVurdering /= sumVekter;
         vektAvstand /= sumVekter;
+        vektStorrelse /= sumVekter;
         let bestePlasser = [];
         for (let i = 0; i < liste_med_plasser.length; i++) {
             const plass = liste_med_plasser[i];
@@ -190,14 +185,14 @@ export default function FilterSite() {
             if (c > 1) {
                 c = 0;
             }
-            const d = 1 - Math.abs(plass[9] - storrelse) / 1000;
+            const d = 1 - Math.abs(plass[9] * 10 - storrelse) / 100;
             const snitt =
                 vektVurdering * a +
                 vektStoy * b +
                 vektAvstand * c +
                 vektStorrelse * d;
-            const point = [plass[0], snitt,  avstand ];
-            if (bestePlasser.length < 5 || bestePlasser[4].snitt < snitt) {
+            const point = [plass[0], snitt, avstand];
+            if (bestePlasser.length < 5 || bestePlasser[4][1] < snitt) {
                 if (bestePlasser.length < 5) {
                     bestePlasser.push(point);
                 } else {
@@ -206,8 +201,9 @@ export default function FilterSite() {
                 }
             }
             bestePlasser.sort(function (a, b) {
-                return b.snitt - a.snitt;
+                return b[1] - a[1];
             });
+            console.log("snitt: ", snitt, "beste: ", bestePlasser);
         }
         places = bestePlasser;
         setBestPlaces(bestePlasser);
@@ -235,59 +231,35 @@ export default function FilterSite() {
                         <div>
                             <p></p>
                         </div>
-                            <h2 id="title">Støy </h2>
-                            <div id="weight">
-                                <input 
+                        <h2 id="title">Støy </h2>
+                        <div id="weight">
+                            <input
                                 type="checkbox"
                                 name="check"
                                 onChange={onChangeCheckedStoy}
                             ></input>
                             <p>Viktig?</p>
-                            </div>
+                        </div>
                     </div>
-                    <div className="choice"
-                        onChange={onChangeStoy}>
+                    <div className="choice" onChange={onChangeStoy}>
                         <p>1</p>
                         <p>2</p>
                         <p>3</p>
                         <p>4</p>
                         <p>5</p>
                         <input type="radio" id="1" value="1" name="stoy" />{" "}
-                        
-                        <input
-                            type="radio"
-                            id="1"
-                            value="2"
-                            name="stoy"
-                        />{" "}
-                        
-                        <input
-                            type="radio"
-                            id="1"
-                            value="3"
-                            name="stoy"
-                        />{" "}
-                        
-                        <input
-                            type="radio"
-                            id="1"
-                            value="4"
-                            name="stoy"
-                        />{" "}
-                        
-                        <input
-                            type="radio"
-                            id="1"
-                            value="5"
-                            name="stoy"
-                        />{" "}
-                        
+                        <input type="radio" id="1" value="2" name="stoy" />{" "}
+                        <input type="radio" id="1" value="3" name="stoy" />{" "}
+                        <input type="radio" id="1" value="4" name="stoy" />{" "}
+                        <input type="radio" id="1" value="5" name="stoy" />{" "}
                     </div>
                 </div>
                 <div id="container">
                     <div className="headerWeights">
-                        <div><p></p></div>
-                        <h2>Vurdering</h2>
+                        <div>
+                            <p></p>
+                        </div>
+                        <h2 id="kort1">Høy Vurdering?</h2>
                         <div id="weight">
                             <input
                                 type="checkbox"
@@ -297,65 +269,15 @@ export default function FilterSite() {
                             <p>Viktig?</p>
                         </div>
                     </div>
-                    <div className="choice"
-                        onChange={onChangeVurdering}>
-                        <p>
-                         1
-                        </p>
-                        <p>
-                         2
-                        </p>
-                        <p>
-                         3
-                        </p>
-                        <p>
-                         4
-                        </p>
-                        <p>
-                         5
-                        </p>
-                        <input
-                            type="radio"
-                            id="1"
-                            value="1"
-                            name="vurdering"
-                        />{" "}
-                        <input
-                            type="radio"
-                            id="1"
-                            value="2"
-                            name="vurdering"
-                        />{" "}
-                        
-                        <input
-                            type="radio"
-                            id="1"
-                            value="3"
-                            name="vurdering"
-                        />{" "}
-                        
-                        <input
-                            type="radio"
-                            id="1"
-                            value="4"
-                            name="vurdering"
-                        />{" "}
-                        
-                        <input
-                            type="radio"
-                            id="1"
-                            value="5"
-                            name="vurdering"
-                        />{" "}
-                    </div>
                 </div>
                 <div id="container">
                     <div className="headerWeights">
-                        <div><p></p></div>
-                            <h2 id="kort1">Har du korttilgang?</h2>
+                        <div>
+                            <p></p>
+                        </div>
+                        <h2 id="kort1">Har du korttilgang?</h2>
                         <div id="kort2">
                             <input
-                                
                                 type="checkbox"
                                 name="check"
                                 onChange={onChangeKorttilgang}
@@ -365,15 +287,17 @@ export default function FilterSite() {
                 </div>
                 <div id="container">
                     <div className="headerWeights">
-                        <div><p></p></div>
-                            <h2 id="kort1">Antall plasser</h2>
+                        <div>
+                            <p></p>
+                        </div>
+                        <h2 id="kort1">Antall plasser</h2>
                         <div id="weight">
                             <input
                                 type="checkbox"
                                 name="check"
                                 onChange={onChangeCheckedStorrelse}
                             ></input>
-                           <p>Viktig?</p> 
+                            <p>Viktig?</p>
                         </div>
                         <div></div>
                         <input
@@ -389,8 +313,10 @@ export default function FilterSite() {
                 </div>
                 <div id="container">
                     <div className="headerWeights">
-                        <div><p></p></div>
-                            <h2>Avstand</h2>
+                        <div>
+                            <p></p>
+                        </div>
+                        <h2>Avstand</h2>
                         <div id="weight">
                             <input
                                 type="checkbox"
@@ -398,11 +324,9 @@ export default function FilterSite() {
                                 onChange={onChangeCheckedNerhet}
                             ></input>
                             <p>Viktig?</p>
-                            
                         </div>
                         <br />
                         <input
-                            className="slidecontainer"
                             type="range"
                             step={0.1}
                             min={1}
@@ -418,7 +342,8 @@ export default function FilterSite() {
                         Finn leseplass
                     </button>
                 </div>
-            </div> {/* filterBox*/}
+            </div>{" "}
+            {/* filterBox*/}
         </>
     );
 }

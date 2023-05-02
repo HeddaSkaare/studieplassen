@@ -1,10 +1,9 @@
-import { makeVar} from "@apollo/client";
+import { makeVar } from "@apollo/client";
 import "leaflet/dist/leaflet.css";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import MapResult from "./mapResult";
 import NavBar from "./navBar";
-
 
 export let clicked = makeVar("");
 function Results() {
@@ -27,13 +26,16 @@ function Results() {
         }
     }, [hasFetchedData]);
 
-
     const res1 = pois.filter((element) =>
         places.find((obj) => obj[0] === element[0])
     );
-    console.log("filtery", res1);
-  
 
+    const sortedRes1 = res1.sort((a, b) => {
+        const indexA = places.findIndex((place) => place[0] === a[0]);
+        const indexB = places.findIndex((place) => place[0] === b[0]);
+        return indexA - indexB;
+    });
+    console.log("filtery", res1);
 
     function handleClick(poi) {
         clicked(poi);
@@ -46,11 +48,10 @@ function Results() {
                 <div className="sideBar">
                     <h3>Dine beste studieplasser</h3>
                     <div className="sideBar2">
-                        {res1.map((item) => {
-                            const po = places.find(el => el[0] === item[0])
-                            const avstand = po[2]
-                            const snitt = po[1]
-                            console.log(avstand)
+                        {sortedRes1.map((item) => {
+                            const po = places.find((el) => el[0] === item[0]);
+                            const avstand = po[2];
+                            const snitt = po[1];
                             return (
                                 <div
                                     className="result1"
@@ -61,19 +62,21 @@ function Results() {
                                     <div className="boxContainer">
                                         <div id="left">
                                             <p> Vurdering: {item[7]}</p>
-                                            <p> Kapasitet: {item[9]}</p>
+                                            <p> Kapasitet: {item[9] * 10}</p>
                                         </div>
                                         <div id="right">
                                             <p> Støynivå: {item[6]}</p>
-                                            <p> Avstand: {Math.round(avstand)} m</p>
+                                            <p>
+                                                {" "}
+                                                Avstand: {Math.round(avstand)} m
+                                            </p>
                                         </div>
                                     </div>
                                     <p id="five">
-                                    <p> Match: {snitt.toFixed(2)}</p>
-                                        {" "}
+                                        <p> Match: {snitt.toFixed(2)}</p>{" "}
                                         {item[8]
-                                            ? "Trenger ikke korttilgang"
-                                            : "Må ha korttilgang"}
+                                            ? "Må ha korttilgang"
+                                            : "Trenger ikke korttilgang"}
                                     </p>
                                 </div>
                             );
