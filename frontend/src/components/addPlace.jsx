@@ -1,7 +1,6 @@
 import { useReactiveVar } from "@apollo/client";
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import TimePicker from "react-bootstrap-time-picker";
 import { useNavigate } from "react-router-dom";
 import { poiId, poiName } from "./markers";
 import NavBar from "./navBar";
@@ -13,8 +12,6 @@ export default function AddPlace() {
     const [rating, setRating] = useState(3);
     const [cardEntrance, setCardEntrance] = useState(false);
     const [capasity, setCapasity] = useState(3);
-    const [from, setFrom] = useState("");
-    const [to, setTo] = useState("");
     const navigate = useNavigate();
 
     const [noiceT,setNoiceT]=useState("Middels")

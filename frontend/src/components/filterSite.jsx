@@ -9,7 +9,7 @@ export default function FilterSite() {
     const [checkStoy, setCheckStoy] = useState(false);
     const [storrelse, setStorrelse] = useState(50);
     const [checkStorrelse, setCheckStorrelse] = useState(false);
-    const [vurdering, setVurdering] = useState(5);
+    const [vurdering] = useState(5);
     const [checkVurdering, setCheckVurdering] = useState(false);
     const [nerhet, setNerhet] = useState(3);
     const [checkNerhet, setCheckNerhet] = useState(false);
@@ -17,9 +17,9 @@ export default function FilterSite() {
     const [hasFetchedData, setHasFetchedData] = useState(false);
     const [pois, setPois] = useState([]);
     const [brukerPosisjon, setBrukerPosisjon] = useState([]);
-    const [bestPlaces, setBestPlaces] = useState([]);
     const [korttilgang, setKorttilgang] = useState(false);
     const [hasFetchedLoc, setHasFetchedLoc] = useState(false);
+
 
     const [stoyT,setStoyT]=useState("Middels")
     const stoyArray = ["Helt stille","Litt stille","Middels","Litt støy", "Støy"]
@@ -43,13 +43,9 @@ export default function FilterSite() {
             });
         }
     }, [hasFetchedLoc]);
+  
 
-    const poisW = pois.filter(
-        (element) => element[6] != undefined || element[6] != null
-    ); //punkter med vurdering
-    const poisU = pois.filter(
-        (element) => element[6] == undefined || element[6] == null
-    ); //punkter uten vurdering
+    
     function onChangeStoy(event) {
         event.preventDefault();
         
@@ -108,9 +104,9 @@ export default function FilterSite() {
     function YagerIntersection() {
         let liste_med_plasser = [];
         if (korttilgang) {
-            liste_med_plasser = pois.filter((element) => element[8] == true);
+            liste_med_plasser = pois.filter((element) => element[8] === true);
         } else {
-            liste_med_plasser = pois.filter((element) => element[8] == false);
+            liste_med_plasser = pois.filter((element) => element[8] === false);
         }
         const vekt = 10;
         let bestePlasser = [];
@@ -155,15 +151,14 @@ export default function FilterSite() {
             });
         }
         places = bestePlasser;
-        setBestPlaces(bestePlasser);
     }
 
     function middleNumber() {
         let liste_med_plasser = [];
         if (korttilgang) {
-            liste_med_plasser = pois.filter((element) => element[8] == true);
+            liste_med_plasser = pois.filter((element) => element[8] === true);
         } else {
-            liste_med_plasser = pois.filter((element) => element[8] == false);
+            liste_med_plasser = pois.filter((element) => element[8] === false);
         }
         let vektStoy = checkStoy ? 5 : 1;
         let vektVurdering = checkVurdering ? 5 : 1;
@@ -213,7 +208,7 @@ export default function FilterSite() {
             });
         }
         places = bestePlasser;
-        setBestPlaces(bestePlasser);
+        
     }
 
     function handleSubmit() {
@@ -222,7 +217,9 @@ export default function FilterSite() {
         } else {
             YagerIntersection();
         }
-        navigate("/result", { state: { places } });
+        
+       
+        navigate("/result", { state: { places}});
     }
     return (
         <>
