@@ -20,6 +20,7 @@ export default function FilterSite() {
     const [korttilgang, setKorttilgang] = useState(false);
     const [hasFetchedLoc, setHasFetchedLoc] = useState(false);
 
+
     const [stoyT,setStoyT]=useState("Middels")
     const stoyArray = ["Helt stille","Litt stille","Middels","Litt støy", "Støy"]
 
@@ -42,6 +43,7 @@ export default function FilterSite() {
             });
         }
     }, [hasFetchedLoc]);
+  
 
     
     function onChangeStoy(event) {
@@ -215,7 +217,9 @@ export default function FilterSite() {
         } else {
             YagerIntersection();
         }
-        navigate("/result", { state: { places } });
+        
+       
+        navigate("/result", { state: { places}});
     }
     return (
         <>

@@ -32,9 +32,10 @@ function MarkersResult() {
 
 
   const [hasFetchedData, setHasFetchedData] = useState(false);
-    const [pois, setPois] = useState([]);
-    const location = useLocation();
-    const { places } = location.state;
+  const [pois, setPois] = useState([]);
+  const location = useLocation();
+  const { places } = location.state;
+ 
     useEffect(() => {
         console.log("places",places);
     }, [places]);
@@ -50,8 +51,10 @@ function MarkersResult() {
         }
     }, [hasFetchedData]);
    
-    const res1 = pois.filter((element) => places.find(obj => obj[0] === element[0]));
-    console.log("filter",res1)
+  const res1 = pois.filter((element) => places.find(obj => obj[0] === element[0]));
+  
+
+  console.log("filter",res1)
 
   return (
     <div>

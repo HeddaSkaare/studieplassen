@@ -11,6 +11,7 @@ function Results() {
     const [pois, setPois] = useState([]);
     const location = useLocation();
     const { places } = location.state;
+    
     useEffect(() => {
         console.log("places", places);
     }, [places]);
